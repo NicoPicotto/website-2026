@@ -1,0 +1,89 @@
+/* ─── Tailwind v4 ─────────────────────────────────────────────────────────── */
+@import "tailwindcss";
+
+/* ─── Self-hosted variable fonts ─────────────────────────────────────────── */
+@import "@fontsource-variable/rubik";
+@import "@fontsource-variable/dm-sans";
+
+/* ─── Tailwind v4 theme extension ────────────────────────────────────────── */
+/* Replaces tailwind.config.js — all tokens registered here are available    */
+/* as utilities: font-heading, bg-terracotta, text-pearl, etc.               */
+@theme {
+  --font-heading: 'Rubik Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'DM Sans Variable', ui-sans-serif, system-ui, sans-serif;
+
+  /* Palette tokens */
+  --color-true-black:   oklch(5% 0 0);
+  --color-dark-surface: oklch(16% 0 0);
+  --color-charcoal:     oklch(38% 0.002 285);
+  --color-terracotta:   oklch(58% 0.09 27);
+  --color-pearl:        oklch(96% 0 0);
+}
+
+/* ─── Shadcn CSS variable overrides ──────────────────────────────────────── */
+/* Single dark-leaning theme — no light/dark toggle.                         */
+/* Palette: #262626 · #595859 · #BF7665 · #F2F2F2                           */
+@layer base {
+  :root {
+    /* Page background & default text */
+    --background: oklch(16% 0 0);       /* #262626 */
+    --foreground: oklch(96% 0 0);       /* #F2F2F2 */
+
+    /* Card / elevated surfaces — slightly lighter than background */
+    --card:             oklch(21% 0 0);
+    --card-foreground:  oklch(96% 0 0);
+    --popover:          oklch(21% 0 0);
+    --popover-foreground: oklch(96% 0 0);
+
+    /* Primary action — terracotta */
+    --primary:            oklch(58% 0.09 27); /* #BF7665 */
+    --primary-foreground: oklch(96% 0 0);
+
+    /* Secondary — elevated surface */
+    --secondary:            oklch(21% 0 0);
+    --secondary-foreground: oklch(96% 0 0);
+
+    /* Muted backgrounds and text */
+    --muted:            oklch(21% 0 0);
+    --muted-foreground: oklch(96% 0 0); /* #F2F2F2 — all body text white */
+
+    /* Accent — same terracotta */
+    --accent:            oklch(58% 0.09 27);
+    --accent-foreground: oklch(96% 0 0);
+
+    /* Destructive state */
+    --destructive:            oklch(55% 0.18 22);
+    --destructive-foreground: oklch(96% 0 0);
+
+    /* Borders, inputs, focus ring */
+    --border: oklch(38% 0.002 285); /* #595859 */
+    --input:  oklch(38% 0.002 285);
+    --ring:   oklch(58% 0.09 27);   /* #BF7665 terracotta focus ring */
+
+    /* Chart palette (terracotta range) */
+    --chart-1: oklch(58% 0.09 27);
+    --chart-2: oklch(52% 0.08 35);
+    --chart-3: oklch(46% 0.07 40);
+    --chart-4: oklch(40% 0.06 30);
+    --chart-5: oklch(35% 0.05 25);
+
+    --radius: 0.5rem;
+  }
+
+  /* Base typography */
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+
+  * {
+    border-color: var(--border);
+  }
+}

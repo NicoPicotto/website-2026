@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import BlogSearch from '../../components/BlogSearch.tsx';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sorted = allPosts.sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+
+const allTags = [...new Set(sorted.flatMap((p) => p.data.tags))].sort();
+
+const postsData = sorted.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  publishDate: post.data.publishDate.toISOString(),
+  tags: post.data.tags,
+  url: `/blog/${post.id}/`,
+  cover: post.data.cover,
+}));
+---
+
+<Layout title="Blog" description="Articles on design, product, and development.">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <header class="mb-12">
+      <p class="text-xs text-(--muted-foreground) uppercase tracking-widest mb-2">Writing</p>
+      <h1 class="font-heading text-4xl font-bold">Blog</h1>
+      <p class="mt-3 text-(--muted-foreground) max-w-lg">
+        Ideas on product design, frontend development, and the creative process.
+      </p>
+    </header>
+
+    <BlogSearch client:load posts={postsData} allTags={allTags} />
+  </div>
+</Layout>

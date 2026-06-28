@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+
+const allStudies = await getCollection('case-studies', ({ data }) => !data.draft);
+const sorted = allStudies.sort((a, b) => b.data.year - a.data.year);
+---
+
+<Layout title="Case Studies" description="Design and product development projects.">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <header class="mb-12">
+      <p class="text-xs text-(--muted-foreground) uppercase tracking-widest mb-2">Work</p>
+      <h1 class="font-heading text-4xl font-bold">Case Studies</h1>
+      <p class="mt-3 text-(--muted-foreground) max-w-lg">
+        A walkthrough of the projects I've worked on: process, decisions, and outcomes.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sorted.map((study) => (
+        <CaseStudyCard
+          title={study.data.title}
+          summary={study.data.summary}
+          client={study.data.client}
+          year={study.data.year}
+          tags={study.data.tags}
+          href={`/case-studies/${study.id}/`}
+          cover={study.data.cover}
+          liveUrl={study.data.liveUrl}
+        />
+      ))}
+    </div>
+  </div>
+</Layout>

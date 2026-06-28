@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const studies = await getCollection('case-studies', ({ data }) => !data.draft);
+  return studies.map((study) => ({
+    params: { slug: study.id },
+    props: { study },
+  }));
+}
+
+const { study } = Astro.props;
+const { Content } = await render(study);
+---
+
+<Layout title={study.data.title} description={study.data.summary}>
+  <article class="container mx-auto px-4 py-16 max-w-2xl">
+    <header class="mb-8">
+      <p class="text-sm text-(--muted-foreground)">
+        {study.data.client && <span>{study.data.client} · </span>}{study.data.year}
+      </p>
+      <h1 class="mt-2 text-3xl font-bold">{study.data.title}</h1>
+      <p class="mt-3 text-(--muted-foreground)">{study.data.summary}</p>
+      {study.data.tags.length > 0 && (
+        <ul class="mt-3 flex gap-2 flex-wrap">
+          {study.data.tags.map((tag) => (
+            <li class="text-xs px-2 py-1 rounded border border-(--border) text-(--muted-foreground)">
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )}
+      {study.data.liveUrl && (
+        <a href={study.data.liveUrl} target="_blank" rel="noopener noreferrer"
+           class="mt-4 inline-block text-sm text-(--primary) hover:underline">
+          View project →
+        </a>
+      )}
+    </header>
+    <div class="prose prose-invert max-w-none">
+      <Content />
+    </div>
+  </article>
+</Layout>

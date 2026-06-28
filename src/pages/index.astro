@@ -1,0 +1,167 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import PostCard from '../components/PostCard.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+import ContactForm from '../components/ContactForm.tsx';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const latestPosts = allPosts
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 3);
+
+const allStudies = await getCollection('case-studies', ({ data }) => !data.draft);
+const latestStudies = allStudies
+  .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 3);
+
+const skills = [
+  'UX Design', 'Product Design', 'Design Systems',
+  'Prototyping', 'Frontend Development', 'Figma',
+  'User Research', 'Branding', 'Interaction Design',
+];
+---
+
+<Layout title="Portfolio" description="Nicolas Picoto — Designer & Developer">
+
+  <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-28">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+      <!-- Text -->
+      <div>
+        <p class="text-sm text-(--primary) font-medium mb-4 tracking-wide uppercase">
+          Designer & Developer
+        </p>
+        <h1 class="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
+          Nicolas Picoto
+        </h1>
+        <p class="mt-6 text-lg sm:text-xl text-(--muted-foreground) max-w-xl leading-relaxed">
+          I design digital products centered on people. I combine experience design with frontend development to create interfaces that work and feel right.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a
+            href="/case-studies/"
+            class="inline-flex items-center px-5 py-2.5 rounded-lg bg-(--primary) text-(--primary-foreground) text-sm font-medium hover:opacity-90 transition-opacity"
+          >
+            See my work
+          </a>
+          <a
+            href="/#contact"
+            class="inline-flex items-center px-5 py-2.5 rounded-lg border border-(--border) text-sm font-medium hover:bg-white hover:text-black hover:border-white transition-colors"
+          >
+            Get in touch
+          </a>
+        </div>
+      </div>
+
+      <!-- Photo -->
+      <div class="flex justify-center lg:justify-end">
+        <img
+          src="/hero-image.png"
+          alt="Nicolas Picoto"
+          class="w-64 h-64 sm:w-80 sm:h-80 rounded-full object-cover"
+        />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Case Studies preview ──────────────────────────────────────────── -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <p class="text-xs text-(--muted-foreground) uppercase tracking-widest mb-2">Work</p>
+        <h2 class="font-heading text-3xl font-bold">Case Studies</h2>
+      </div>
+      <a href="/case-studies/" class="text-sm text-(--primary) hover:underline underline-offset-4 whitespace-nowrap">
+        View all →
+      </a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {latestStudies.map((study) => (
+        <CaseStudyCard
+          title={study.data.title}
+          summary={study.data.summary}
+          client={study.data.client}
+          year={study.data.year}
+          tags={study.data.tags}
+          href={`/case-studies/${study.id}/`}
+          cover={study.data.cover}
+          liveUrl={study.data.liveUrl}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- ── Blog preview ──────────────────────────────────────────────────── -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-(--border)">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <p class="text-xs text-(--muted-foreground) uppercase tracking-widest mb-2">Writing</p>
+        <h2 class="font-heading text-3xl font-bold">Blog</h2>
+      </div>
+      <a href="/blog/" class="text-sm text-(--primary) hover:underline underline-offset-4 whitespace-nowrap">
+        View all →
+      </a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {latestPosts.map((post) => (
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          publishDate={post.data.publishDate}
+          tags={post.data.tags}
+          href={`/blog/${post.id}/`}
+          cover={post.data.cover}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- ── About + Skills ───────────────────────────────────────────────── -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-(--border)">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <div>
+        <p class="text-xs text-(--muted-foreground) uppercase tracking-widest mb-2">About</p>
+        <h2 class="font-heading text-3xl font-bold mb-6">A bit of context</h2>
+        <div class="space-y-4 text-(--muted-foreground) leading-relaxed">
+          <p>
+            I'm a product designer and frontend developer with [X] years of experience building digital experiences for startups and growth-stage companies.
+          </p>
+          <p>
+            I specialize in the bridge between design and implementation: I understand both the user side and the technical side, which allows me to make more informed decisions and execute faster.
+          </p>
+          <p>
+            Currently available for freelance projects and full-time opportunities.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-xs text-(--muted-foreground) uppercase tracking-widest mb-2">Skills</p>
+        <h2 class="font-heading text-3xl font-bold mb-6">What I do</h2>
+        <ul class="flex flex-wrap gap-2">
+          {skills.map((skill) => (
+            <li class="px-3 py-1.5 rounded-lg border border-(--border) text-sm text-(--muted-foreground) hover:border-(--primary) hover:text-(--primary) transition-colors cursor-default">
+              {skill}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact ───────────────────────────────────────────────────────── -->
+  <section id="contact" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-(--border)">
+    <div class="max-w-xl">
+      <p class="text-xs text-(--muted-foreground) uppercase tracking-widest mb-2">Contact</p>
+      <h2 class="font-heading text-3xl font-bold mb-4">Have a project in mind?</h2>
+      <p class="text-(--muted-foreground) leading-relaxed mb-8">
+        I'm always open to talking about new opportunities, collaborations, or just having a virtual coffee.
+      </p>
+      <ContactForm client:load />
+    </div>
+  </section>
+
+</Layout>
