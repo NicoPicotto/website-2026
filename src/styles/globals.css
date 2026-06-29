@@ -1,5 +1,6 @@
 /* ─── Tailwind v4 ─────────────────────────────────────────────────────────── */
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* ─── Self-hosted variable fonts ─────────────────────────────────────────── */
 @import "@fontsource-variable/rubik";
