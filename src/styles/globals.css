@@ -17,13 +17,13 @@
   --color-true-black:   oklch(5% 0 0);
   --color-dark-surface: oklch(16% 0 0);
   --color-charcoal:     oklch(38% 0.002 285);
-  --color-terracotta:   oklch(58% 0.09 27);
+  --color-terracotta:   oklch(62% 0.18 27);
   --color-pearl:        oklch(96% 0 0);
 }
 
 /* ─── Shadcn CSS variable overrides ──────────────────────────────────────── */
 /* Single dark-leaning theme — no light/dark toggle.                         */
-/* Palette: #262626 · #595859 · #BF7665 · #F2F2F2                           */
+/* Palette: #262626 · #595859 · #C95E4A · #F2F2F2                           */
 @layer base {
   :root {
     /* Page background & default text */
@@ -37,7 +37,7 @@
     --popover-foreground: oklch(96% 0 0);
 
     /* Primary action — terracotta */
-    --primary:            oklch(58% 0.09 27); /* #BF7665 */
+    --primary:            oklch(62% 0.18 27);
     --primary-foreground: oklch(96% 0 0);
 
     /* Secondary — elevated surface */
@@ -49,7 +49,7 @@
     --muted-foreground: oklch(96% 0 0); /* #F2F2F2 — all body text white */
 
     /* Accent — same terracotta */
-    --accent:            oklch(58% 0.09 27);
+    --accent:            oklch(62% 0.18 27);
     --accent-foreground: oklch(96% 0 0);
 
     /* Destructive state */
@@ -59,14 +59,14 @@
     /* Borders, inputs, focus ring */
     --border: oklch(38% 0.002 285); /* #595859 */
     --input:  oklch(38% 0.002 285);
-    --ring:   oklch(58% 0.09 27);   /* #BF7665 terracotta focus ring */
+    --ring:   oklch(62% 0.18 27);
 
     /* Chart palette (terracotta range) */
-    --chart-1: oklch(58% 0.09 27);
-    --chart-2: oklch(52% 0.08 35);
-    --chart-3: oklch(46% 0.07 40);
-    --chart-4: oklch(40% 0.06 30);
-    --chart-5: oklch(35% 0.05 25);
+    --chart-1: oklch(62% 0.18 27);
+    --chart-2: oklch(56% 0.14 35);
+    --chart-3: oklch(50% 0.11 40);
+    --chart-4: oklch(44% 0.08 30);
+    --chart-5: oklch(38% 0.06 25);
 
     --radius: 0.5rem;
   }
