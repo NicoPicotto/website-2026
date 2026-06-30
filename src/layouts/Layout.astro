@@ -22,7 +22,7 @@ const {
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://nicopicotto.dev';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 const ogImage = image.startsWith('http') ? image : new URL(image, siteUrl).toString();
-const fullTitle = `${title} — Nicolas Picotto`;
+const fullTitle = `${title}`;
 
 const personSchema = {
   '@context': 'https://schema.org',
