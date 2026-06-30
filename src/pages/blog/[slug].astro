@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import Reveal from 'astro-reveal/Reveal.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -14,9 +15,15 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.cover}
+  type="article"
+  publishDate={post.data.publishDate}
+>
   <article class="container mx-auto px-4 py-16 max-w-2xl">
-    <header class="mb-8">
+    <Reveal animation="up" as="header" class="mb-8">
       <time class="text-sm text-(--muted-foreground)">
         {post.data.publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
       </time>
@@ -30,7 +37,12 @@ const { Content } = await render(post);
           ))}
         </ul>
       )}
-    </header>
+    </Reveal>
+    {post.data.cover && (
+      <Reveal animation="up" class="mb-8">
+        <img src={post.data.cover} alt={post.data.title} class="w-full rounded-xl object-cover max-h-96" />
+      </Reveal>
+    )}
     <div class="prose prose-invert max-w-none">
       <Content />
     </div>

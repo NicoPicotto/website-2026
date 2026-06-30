@@ -6,12 +6,59 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  type?: 'website' | 'article' | 'case-study';
+  publishDate?: Date;
 }
 
 const {
   title,
-  description = 'Nicolas Picotto — Design & Development Portfolio',
+  description = 'Nicolas Picotto — Product Designer & Frontend Developer',
+  image = '/hero-image.png',
+  type = 'website',
+  publishDate,
 } = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://nicopicotto.dev';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const ogImage = image.startsWith('http') ? image : new URL(image, siteUrl).toString();
+const fullTitle = `${title} — Nicolas Picotto`;
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Nicolas Picotto',
+  url: siteUrl,
+  sameAs: ['https://www.linkedin.com/in/nicolaspicotto/'],
+  jobTitle: 'Product Designer & Frontend Developer',
+  image: `${siteUrl}/hero-image.png`,
+  email: 'hola@nicopicotto.dev',
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  image: ogImage,
+  url: canonicalUrl,
+  datePublished: publishDate?.toISOString(),
+  author: { '@type': 'Person', name: 'Nicolas Picotto', url: siteUrl },
+  publisher: { '@type': 'Person', name: 'Nicolas Picotto', url: siteUrl },
+};
+
+const creativeWorkSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: title,
+  description,
+  image: ogImage,
+  url: canonicalUrl,
+  creator: { '@type': 'Person', name: 'Nicolas Picotto', url: siteUrl },
+};
+
+const jsonLd =
+  type === 'website' ? personSchema : type === 'article' ? articleSchema : creativeWorkSchema;
 ---
 
 <!doctype html>
@@ -22,7 +69,27 @@ const {
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title} — Nicolas Picotto</title>
+    <link rel="canonical" href={canonicalUrl} />
+    <title>{fullTitle}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type === 'article' ? 'article' : 'website'} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Nicolas Picotto" />
+    <meta property="og:locale" content="en_US" />
+    {publishDate && <meta property="article:published_time" content={publishDate.toISOString()} />}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- JSON-LD Structured Data -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body class="min-h-screen">
     <Header />

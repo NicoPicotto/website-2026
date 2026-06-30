@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import Reveal from 'astro-reveal/Reveal.astro';
 
 export async function getStaticPaths() {
   const studies = await getCollection('case-studies', ({ data }) => !data.draft);
@@ -14,9 +15,14 @@ const { study } = Astro.props;
 const { Content } = await render(study);
 ---
 
-<Layout title={study.data.title} description={study.data.summary}>
+<Layout
+  title={study.data.title}
+  description={study.data.summary}
+  image={study.data.cover}
+  type="case-study"
+>
   <article class="container mx-auto px-4 py-16 max-w-2xl">
-    <header class="mb-8">
+    <Reveal animation="up" as="header" class="mb-8">
       <p class="text-sm text-(--muted-foreground)">
         {study.data.client && <span>{study.data.client} · </span>}{study.data.year}
       </p>
@@ -37,7 +43,12 @@ const { Content } = await render(study);
           View project →
         </a>
       )}
-    </header>
+    </Reveal>
+    {study.data.cover && (
+      <Reveal animation="up" class="mb-8">
+        <img src={study.data.cover} alt={study.data.title} class="w-full rounded-xl object-cover max-h-96" />
+      </Reveal>
+    )}
     <div class="prose prose-invert max-w-none">
       <Content />
     </div>

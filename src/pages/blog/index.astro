@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import BlogSearch from '../../components/BlogSearch.tsx';
+import Reveal from 'astro-reveal/Reveal.astro';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const sorted = allPosts.sort(
@@ -23,14 +24,16 @@ const postsData = sorted.map((post) => ({
 
 <Layout title="Blog" description="Articles on design, product, and development.">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <header class="mb-12">
+    <Reveal animation="up" as="header" class="mb-12">
       <p class="text-xs text-(--muted-foreground) uppercase tracking-widest mb-2">Writing</p>
       <h1 class="font-heading text-4xl font-bold">Blog</h1>
       <p class="mt-3 text-(--muted-foreground) max-w-lg">
         Ideas on product design, frontend development, and the creative process.
       </p>
-    </header>
+    </Reveal>
 
-    <BlogSearch client:load posts={postsData} allTags={allTags} />
+    <Reveal animation="up">
+      <BlogSearch client:load posts={postsData} allTags={allTags} />
+    </Reveal>
   </div>
 </Layout>

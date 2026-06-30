@@ -2,26 +2,34 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-(--border) mt-24">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
-    <p class="text-sm text-(--muted-foreground)">
-      © {year} Nicolas Picotto
-    </p>
-    <div class="flex items-center gap-6">
-      <a
-        href="https://www.linkedin.com/in/nicolaspicotto/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-sm text-(--muted-foreground) hover:text-(--foreground) transition-colors"
-      >
-        LinkedIn
-      </a>
-      <a
-        href="mailto:picottonico@gmail.com"
-        class="text-sm text-(--muted-foreground) hover:text-(--foreground) transition-colors"
-      >
-        Email
-      </a>
-    </div>
-  </div>
+<footer class='border-t border-(--border) mt-24'>
+   <div
+      class='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4'
+   >
+      <p class='text-sm text-(--muted-foreground)'>
+         © {year} Nicolas Picotto &nbsp;·&nbsp; Animated with{' '}
+         <a
+            href='https://astro-reveal.nicopicotto.dev/'
+            target='_blank'
+            rel='noopener noreferrer'
+            class='hover:text-(--foreground) transition-colors underline underline-offset-2'
+         >astro-reveal</a>
+      </p>
+      <div class='flex items-center gap-6'>
+         <a
+            href='https://www.linkedin.com/in/nicolaspicotto/'
+            target='_blank'
+            rel='noopener noreferrer'
+            class='text-sm text-(--muted-foreground) hover:text-(--foreground) transition-colors'
+         >
+            LinkedIn
+         </a>
+         <a
+            href='mailto:hola@nicopicotto.dev'
+            class='text-sm text-(--muted-foreground) hover:text-(--foreground) transition-colors'
+         >
+            Email
+         </a>
+      </div>
+   </div>
 </footer>
