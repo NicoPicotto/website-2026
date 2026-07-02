@@ -1,0 +1,46 @@
+# Nicolas Picotto
+
+> Fullstack Developer & Designer specialising in the bridge between UX design and frontend/backend development. Building digital products centered on people.
+
+Nicolas Picotto is a fullstack developer and designer with experience building digital products for startups and growth-stage companies. He combines product thinking with technical execution — from UX research and visual design to React, Astro, and backend development. Currently available for freelance projects.
+
+- Website: https://nicopicotto.dev
+- Email: hola@nicopicotto.dev
+- LinkedIn: https://www.linkedin.com/in/nicolaspicotto/
+- Twitter/X: https://x.com/NicoPicotto
+- Webflow Certified Practitioner
+
+## Skills
+
+Frontend Development, Backend Development, UX Design, Product Design, Scroll Animations, Webflow, Figma, Adobe Suite, React, React Native, Tailwind CSS, Astro, Node.js.
+
+## Blog
+
+Articles on product design, frontend development, and the creative process.
+
+- [Why Just JavaScript Should Be Required Reading for Every Dev](https://nicopicotto.dev/blog/just-javascript-review/)
+  Published: 2026-06-30. Tags: javascript, learning, opinion.
+  Opinion piece on Just JavaScript by Dan Abramov and Maggie Appleton — the course that explains what's happening under the hood of JavaScript.
+
+- [Free GDPR-Compliant Cookie Consent for Webflow — No Third-Party Tools](https://nicopicotto.dev/blog/cookie-consent-webflow/)
+  Published: 2026-06-28. Tags: webflow, gdpr, javascript, cookie-consent.
+  A lightweight, script-only solution for cookie consent in Webflow with no plugins or monthly fees.
+
+## Case Studies
+
+Design and development projects showcasing process, decisions, and outcomes.
+
+- [astro-reveal](https://nicopicotto.dev/case-studies/astro-reveal-case-study/)
+  Client: Personal / Open source. Year: 2026. Tags: open source, astro, developer tools, npm.
+  An open-source Astro integration for scroll reveal animations — zero JS by default, published on npm.
+  Live: https://astro-reveal.nicopicotto.dev/
+
+- [Lava UGC Agency](https://nicopicotto.dev/case-studies/lava-ugc-agency-case-study/)
+  Client: Lava UGC Agency. Year: 2025. Tags: astro, tailwind css, lenis scroll.
+  A high-impact landing page for a UGC agency — bold 3D visuals, smooth scroll, zero compromise on performance.
+  Live: https://lavaugc.com/
+
+- [TechGuru](https://nicopicotto.dev/case-studies/techguru-case-study/)
+  Client: TechGuru. Year: 2024. Tags: react, gsap, i18next, figma.
+  From-scratch identity and website for a technical instrumentation company, later extended with i18n support.
+  Live: https://techguru.com.ar/

@@ -10,6 +10,7 @@ interface Props {
   image?: string;
   type?: 'website' | 'article' | 'case-study';
   publishDate?: Date;
+  updatedDate?: Date;
 }
 
 const {
@@ -18,22 +19,36 @@ const {
   image = '/hero-image.png',
   type = 'website',
   publishDate,
+  updatedDate,
 } = Astro.props;
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://nicopicotto.dev';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 const ogImage = image.startsWith('http') ? image : new URL(image, siteUrl).toString();
-const fullTitle = `${title}`;
+const fullTitle = title === 'Nicolas Picotto' ? title : `${title} | Nicolas Picotto`;
 
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Nicolas Picotto',
   url: siteUrl,
-  sameAs: ['https://www.linkedin.com/in/nicolaspicotto/'],
+  sameAs: ['https://www.linkedin.com/in/nicolaspicotto/', 'https://x.com/NicoPicotto'],
   jobTitle: 'Fullstack Developer & Designer',
   image: `${siteUrl}/hero-image.png`,
   email: 'hola@nicopicotto.dev',
+  description:
+    'Fullstack Developer & Designer specialising in the bridge between UX design and frontend/backend development. Building digital products for startups and growth-stage companies.',
+  knowsAbout: [
+    'Frontend Development',
+    'Backend Development',
+    'UX Design',
+    'Product Design',
+    'Scroll Animations',
+    'Webflow',
+    'React',
+    'Tailwind CSS',
+    'Astro',
+  ],
 };
 
 const articleSchema = {
@@ -44,6 +59,7 @@ const articleSchema = {
   image: ogImage,
   url: canonicalUrl,
   datePublished: publishDate?.toISOString(),
+  dateModified: (updatedDate ?? publishDate)?.toISOString(),
   author: { '@type': 'Person', name: 'Nicolas Picotto', url: siteUrl },
   publisher: { '@type': 'Person', name: 'Nicolas Picotto', url: siteUrl },
 };
@@ -85,6 +101,8 @@ const jsonLd =
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@NicoPicotto" />
+    <meta name="twitter:creator" content="@NicoPicotto" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
