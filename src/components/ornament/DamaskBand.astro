@@ -1,0 +1,43 @@
+---
+/*
+ * DamaskBand — olive damask pattern that fills its box (absolutely
+ * positioned: place it inside a relatively positioned band).
+ * Decorative only.
+ */
+
+// Unique pattern id per instance.
+let count = (globalThis as any).__damaskCount ?? 0;
+(globalThis as any).__damaskCount = ++count;
+const id = `damask${count}`;
+---
+
+<svg class='damask' aria-hidden='true'>
+  <defs>
+    <pattern id={id} width='60' height='84' patternUnits='userSpaceOnUse'>
+      <rect width='60' height='84' class='ground'></rect>
+      <g fill='none' class='line' stroke-width='1.2' stroke-linecap='round'>
+        <path d='M0,0 C16,20 16,64 0,84 M60,0 C44,20 44,64 60,84'></path>
+        <path d='M30,12 C38,24 38,36 30,46 C22,36 22,24 30,12 Z' class='leaf'></path>
+        <path d='M30,46 C22,50 14,46 14,38 C14,32 20,30 23,34'></path>
+        <path d='M30,46 C38,50 46,46 46,38 C46,32 40,30 37,34'></path>
+        <path d='M30,46 L30,64 M22,64 C26,60 34,60 38,64'></path>
+        <circle cx='0' cy='42' r='3' class='dot'></circle>
+        <circle cx='60' cy='42' r='3' class='dot'></circle>
+      </g>
+    </pattern>
+  </defs>
+  <rect width='100%' height='100%' fill={`url(#${id})`}></rect>
+</svg>
+
+<style>
+  .damask {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .ground { fill: var(--damask-ground); }
+  .line { stroke: var(--damask-line); }
+  .leaf { fill: var(--damask-fill); }
+  .dot { fill: var(--damask-line); }
+</style>

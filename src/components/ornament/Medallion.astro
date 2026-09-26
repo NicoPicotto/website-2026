@@ -1,0 +1,113 @@
+---
+/*
+ * Medallion — oval portrait in a gilded frame, with a shell on top and a
+ * drop below. Proportions come from the style tile (360×460 box, 300×390
+ * oval); everything is relative so it scales with its width.
+ */
+interface Props {
+  src: string;
+  alt: string;
+}
+
+const { src, alt } = Astro.props;
+---
+
+<figure class='medallion'>
+  <div class='ring'>
+    <div class='portrait'>
+      <img src={src} alt={alt} />
+    </div>
+  </div>
+
+  <svg viewBox='0 0 160 70' class='shell' aria-hidden='true'>
+    <g class='ink' stroke-width='1.3' stroke-linecap='round'>
+      <path d='M20,64 C20,30 50,8 80,8 C110,8 140,30 140,64 Z' class='fill-paper'></path>
+      <path d='M80,64 L28,42 M80,64 L38,27 M80,64 L52,16 M80,64 L66,10 M80,64 L80,8 M80,64 L94,10 M80,64 L108,16 M80,64 L122,27 M80,64 L132,42' fill='none'></path>
+      <path d='M46,64 C46,44 62,32 80,32 C98,32 114,44 114,64' fill='none'></path>
+      <path d='M20,64 C6,62 2,50 10,44 C16,40 22,46 18,50' fill='none'></path>
+      <path d='M140,64 C154,62 158,50 150,44 C144,40 138,46 142,50' fill='none'></path>
+    </g>
+  </svg>
+
+  <svg viewBox='0 0 200 60' class='drop' aria-hidden='true'>
+    <g fill='none' class='ink' stroke-width='1.3' stroke-linecap='round'>
+      <path d='M100,8 C80,10 70,26 52,30 C36,34 24,24 30,14 C34,8 44,12 40,18'></path>
+      <path d='M100,8 C120,10 130,26 148,30 C164,34 176,24 170,14 C166,8 156,12 160,18'></path>
+      <path d='M100,8 C92,24 92,40 100,54 C108,40 108,24 100,8 Z' class='fill-gold'></path>
+      <path d='M62,40 C72,50 88,52 96,46 M138,40 C128,50 112,52 104,46'></path>
+      <path d='M58,28 L62,34 M64,26 L68,32 M136,28 L132,34 M142,26 L138,32' stroke-width='0.8'></path>
+    </g>
+  </svg>
+</figure>
+
+<style>
+  .medallion {
+    position: relative;
+    width: min(360px, 78vw);
+    aspect-ratio: 360 / 460;
+    margin: 0;
+  }
+
+  /* Gilded oval: gold ring, then ink / paper / ink rules outside it */
+  .ring {
+    position: absolute;
+    left: calc(30 / 360 * 100%);
+    top: calc(35 / 460 * 100%);
+    width: calc(300 / 360 * 100%);
+    height: calc(390 / 460 * 100%);
+    border-radius: 50%;
+    padding: calc(12 / 360 * 100%);
+    background: linear-gradient(145deg, var(--ornament-light) 0%, var(--ornament) 40%, var(--ornament-shadow) 70%, var(--ornament-soft) 100%);
+    box-shadow:
+      0 0 0 1px var(--ornament-line),
+      0 0 0 7px var(--background),
+      0 0 0 8px var(--ornament-line),
+      0 18px 30px -12px color-mix(in srgb, var(--ornament-line) 45%, transparent);
+  }
+
+  .portrait {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--muted);
+  }
+  /* Engraved inner edge above the photo */
+  .portrait::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 0 1px var(--ornament-line),
+      inset 0 0 40px color-mix(in srgb, var(--ornament-line) 55%, transparent);
+    pointer-events: none;
+  }
+  .portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .shell,
+  .drop {
+    position: absolute;
+    height: auto;
+    overflow: visible;
+  }
+  .shell {
+    top: calc(4 / 460 * 100%);
+    left: calc(100 / 360 * 100%);
+    width: calc(160 / 360 * 100%);
+  }
+  .drop {
+    bottom: 0;
+    left: calc(80 / 360 * 100%);
+    width: calc(200 / 360 * 100%);
+  }
+
+  .ink { stroke: var(--ornament-line); }
+  .fill-paper { fill: var(--background); }
+  .fill-gold { fill: var(--ornament); }
+</style>

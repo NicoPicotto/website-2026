@@ -5,6 +5,8 @@ import PostCard from "../components/PostCard.astro";
 import CaseStudyCard from "../components/CaseStudyCard.astro";
 import ContactForm from "../components/ContactForm.tsx";
 import Reveal from "astro-reveal/Reveal.astro";
+import Divider from "../components/ornament/Divider.astro";
+import Medallion from "../components/ornament/Medallion.astro";
 
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const latestPosts = allPosts
@@ -76,14 +78,14 @@ const skills = [
 
          <!-- Photo -->
          <Reveal animation='fade' class='flex justify-center lg:justify-end'>
-            <img
-               src='/hero-image.png'
-               alt='Nicolas Picotto'
-               class='w-64 h-64 sm:w-80 sm:h-80 rounded-full object-cover'
-            />
+            <Medallion src='/hero-image.png' alt='Nicolas Picotto' />
          </Reveal>
       </div>
    </section>
+
+   <div class='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8' aria-hidden='true'>
+      <Divider />
+   </div>
 
    <!-- ── Case Studies preview ──────────────────────────────────────────── -->
    <section class='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20'>
@@ -101,7 +103,7 @@ const skills = [
             View all →
          </a>
       </Reveal>
-      <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
+      <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-6'>
          {
             latestStudies.map((study, i) => (
                <Reveal animation='up' index={i} class='flex'>
@@ -120,6 +122,10 @@ const skills = [
          }
       </div>
    </section>
+
+   <div class='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8' aria-hidden='true'>
+      <Divider />
+   </div>
 
    <!-- ── Blog preview ──────────────────────────────────────────────────── -->
    <section
@@ -156,6 +162,10 @@ const skills = [
          }
       </div>
    </section>
+
+   <div class='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8' aria-hidden='true'>
+      <Divider />
+   </div>
 
    <!-- ── About + Skills ───────────────────────────────────────────────── -->
    <section
@@ -228,6 +238,10 @@ const skills = [
          </Reveal>
       </div>
    </section>
+
+   <div class='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8' aria-hidden='true'>
+      <Divider />
+   </div>
 
    <!-- ── Contact ───────────────────────────────────────────────────────── -->
    <section

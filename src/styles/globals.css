@@ -86,8 +86,17 @@
     --border: var(--color-ink);
 
     /* Ornament (SVG frames, dividers) */
-    --ornament:       var(--color-gold);
-    --ornament-light: var(--color-gold-light);
+    --ornament:        var(--color-gold);
+    --ornament-light:  var(--color-gold-light);
+    --ornament-deep:   var(--color-gold-deep);
+    --ornament-soft:   var(--color-gold-soft);
+    --ornament-shadow: var(--color-ochre);  /* engraved shadow of gold */
+    --ornament-line:   var(--color-ink);    /* engraving strokes */
+
+    /* Damask pattern (footer band) */
+    --damask-ground: var(--color-olive);
+    --damask-line:   var(--color-damask-line);
+    --damask-fill:   var(--color-damask-fill);
 
     /* States */
     --error: var(--color-blood);

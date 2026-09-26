@@ -1,0 +1,73 @@
+---
+/*
+ * Divider — rocaille section separator.
+ * Two double rules stretch to fill any width; the rocaille in the middle
+ * (gold almond with a blood bead) keeps its size. Decorative only.
+ */
+---
+
+<div class='divider' aria-hidden='true'>
+  <span class='rule'></span>
+  <svg viewBox='488 0 144 60' class='rocaille'>
+    <g fill='none' class='ink' stroke-linecap='round'>
+      <path d='M490,30 C510,30 518,12 534,10 C548,8 554,22 545,28 C538,32 531,26 536,21' stroke-width='1.4'></path>
+      <path d='M630,30 C610,30 602,12 586,10 C572,8 566,22 575,28 C582,32 589,26 584,21' stroke-width='1.4'></path>
+      <path d='M500,30 C516,32 522,48 537,50 C548,51 552,42 545,38' stroke-width='1.4'></path>
+      <path d='M620,30 C604,32 598,48 583,50 C572,51 568,42 575,38' stroke-width='1.4'></path>
+      <path d='M560,4 C572,16 572,44 560,56 C548,44 548,16 560,4 Z' class='fill-gold' stroke-width='1.3'></path>
+      <path d='M560,12 L560,48' stroke-width='0.8'></path>
+      <circle cx='560' cy='30' r='4' class='fill-blood' stroke-width='1'></circle>
+    </g>
+  </svg>
+  <span class='rule rule-end'></span>
+</div>
+
+<style>
+  .divider {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    color: var(--ornament-line);
+  }
+
+  /* Double rule: 1.2px main line on the axis and a 0.6px line below it,
+     inset from the outer end, which is closed by a bead. */
+  .rule {
+    position: relative;
+    flex: 1;
+    height: 60px;
+    background: radial-gradient(circle at 4px 30px, currentColor 2.6px, transparent 3.2px);
+  }
+  .rule::before,
+  .rule::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    border-top: solid currentColor;
+  }
+  .rule::before {
+    left: 0;
+    top: 29.4px;
+    border-top-width: 1.2px;
+  }
+  .rule::after {
+    left: min(60px, 12%);
+    top: 34.7px;
+    border-top-width: 0.6px;
+  }
+  .rule-end {
+    transform: scaleX(-1);
+  }
+
+  .rocaille {
+    flex: none;
+    width: 144px;
+    height: 60px;
+    overflow: visible;
+  }
+
+  .ink { stroke: currentColor; }
+  .fill-gold { fill: var(--ornament); }
+  .fill-blood { fill: var(--primary); }
+</style>

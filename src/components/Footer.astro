@@ -1,10 +1,13 @@
 ---
+import DamaskBand from './ornament/DamaskBand.astro';
+
 const year = new Date().getFullYear();
 ---
 
-<footer class='border-t border-(--border) mt-24'>
+<footer class='relative mt-24 border-t border-(--border) shadow-[0_-5px_0_-4px_var(--border)] py-12 sm:py-16 px-4'>
+   <DamaskBand />
    <div
-      class='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4'
+      class='relative mx-auto w-fit max-w-full bg-(--card) border border-(--border) outline outline-(--border) outline-offset-[5px] px-6 sm:px-11 py-5 flex flex-col items-center gap-3 text-center'
    >
       <p class='text-sm text-(--muted-foreground)'>
          © {year} Nicolas Picotto &nbsp;·&nbsp; Animated with{' '}

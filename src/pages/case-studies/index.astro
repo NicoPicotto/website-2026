@@ -18,7 +18,7 @@ const sorted = allStudies.sort((a, b) => b.data.year - a.data.year);
       </p>
     </Reveal>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-6">
       {sorted.map((study, i) => (
         <Reveal animation="up" index={i} class="flex">
           <CaseStudyCard
