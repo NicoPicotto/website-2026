@@ -48,7 +48,7 @@ export default function ContactForm() {
           field="email"
           prefix="Email"
           errors={state.errors}
-          className="text-xs text-red-400"
+          className="text-xs text-(--error)"
         />
       </div>
 
@@ -69,7 +69,7 @@ export default function ContactForm() {
           field="message"
           prefix="Message"
           errors={state.errors}
-          className="text-xs text-red-400"
+          className="text-xs text-(--error)"
         />
       </div>
 

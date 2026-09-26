@@ -13,60 +13,61 @@
   --font-heading: 'Rubik Variable', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'DM Sans Variable', ui-sans-serif, system-ui, sans-serif;
 
-  /* Palette tokens */
-  --color-true-black:   oklch(5% 0 0);
-  --color-dark-surface: oklch(16% 0 0);
-  --color-charcoal:     oklch(38% 0.002 285);
+  /* Palette tokens — the only place where raw color values live.            */
+  /* Components never use these directly: they go through the semantic       */
+  /* variables in :root below.                                               */
+  --color-ink-900:      oklch(16% 0 0);          /* #262626 — page */
+  --color-ink-800:      oklch(21% 0 0);          /* cards, inputs */
+  --color-charcoal:     oklch(38% 0.002 285);    /* #595859 */
   --color-terracotta:   oklch(62% 0.18 27);
-  --color-pearl:        oklch(96% 0 0);
+  --color-pearl:        oklch(96% 0 0);          /* #F2F2F2 */
+  --color-white:        oklch(100% 0 0);
+  --color-black:        oklch(0% 0 0);
+  --color-red-400:      oklch(70.4% 0.191 22.216);
+  --color-webflow-blue: #146EF5;
+  --color-olive:        #5F6130;
+  --color-gold:         #B08A3E;
 }
 
-/* ─── Shadcn CSS variable overrides ──────────────────────────────────────── */
-/* Single dark-leaning theme — no light/dark toggle.                         */
-/* Palette: #262626 · #595859 · #C95E4A · #F2F2F2                           */
+/* ─── Semantic variables (shadcn-style) ──────────────────────────────────── */
+/* Reference the palette above — never duplicate raw values here.           */
 @layer base {
   :root {
     /* Page background & default text */
-    --background: oklch(16% 0 0);       /* #262626 */
-    --foreground: oklch(96% 0 0);       /* #F2F2F2 */
+    --background: var(--color-ink-900);
+    --foreground: var(--color-pearl);
 
-    /* Card / elevated surfaces — slightly lighter than background */
-    --card:             oklch(21% 0 0);
-    --card-foreground:  oklch(96% 0 0);
-    --popover:          oklch(21% 0 0);
-    --popover-foreground: oklch(96% 0 0);
+    /* Card / elevated surfaces */
+    --card:  var(--color-ink-800);
+    --muted: var(--color-ink-800);
 
-    /* Primary action — terracotta */
-    --primary:            oklch(62% 0.18 27);
-    --primary-foreground: oklch(96% 0 0);
+    /* Primary action */
+    --primary:            var(--color-terracotta);
+    --primary-foreground: var(--color-pearl);
 
-    /* Secondary — elevated surface */
-    --secondary:            oklch(21% 0 0);
-    --secondary-foreground: oklch(96% 0 0);
+    /* Secondary voice (kickers, tags, secondary CTA) */
+    --secondary:            var(--color-olive);
+    --secondary-foreground: var(--color-pearl);
 
-    /* Muted backgrounds and text */
-    --muted:            oklch(21% 0 0);
-    --muted-foreground: oklch(96% 0 0); /* #F2F2F2 — all body text white */
+    /* Text */
+    --muted-foreground:  var(--color-pearl);    /* secondary text */
+    --subtle-foreground: var(--color-charcoal); /* decorative initials on empty covers */
 
-    /* Accent — same terracotta */
-    --accent:            oklch(62% 0.18 27);
-    --accent-foreground: oklch(96% 0 0);
+    /* Inverted surface (secondary button hover) */
+    --inverse:            var(--color-white);
+    --inverse-foreground: var(--color-black);
 
-    /* Destructive state */
-    --destructive:            oklch(55% 0.18 22);
-    --destructive-foreground: oklch(96% 0 0);
+    /* Lines */
+    --border: var(--color-charcoal);
 
-    /* Borders, inputs, focus ring */
-    --border: oklch(38% 0.002 285); /* #595859 */
-    --input:  oklch(38% 0.002 285);
-    --ring:   oklch(62% 0.18 27);
+    /* Ornament (SVG frames, dividers) */
+    --ornament: var(--color-gold);
 
-    /* Chart palette (terracotta range) */
-    --chart-1: oklch(62% 0.18 27);
-    --chart-2: oklch(56% 0.14 35);
-    --chart-3: oklch(50% 0.11 40);
-    --chart-4: oklch(44% 0.08 30);
-    --chart-5: oklch(38% 0.06 25);
+    /* States */
+    --error: var(--color-red-400);
+
+    /* Certification badge */
+    --badge: var(--color-webflow-blue);
 
     --radius: 0.5rem;
   }

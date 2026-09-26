@@ -91,7 +91,7 @@ export default function BlogSearch({ posts, allTags }: Props) {
                   <img src={post.cover} alt={post.title} className="w-full aspect-video object-cover" />
                 ) : (
                   <div className="w-full aspect-video bg-(--muted) flex items-center justify-center">
-                    <span className="font-heading text-4xl font-bold text-(--border) select-none">
+                    <span className="font-heading text-4xl font-bold text-(--subtle-foreground) select-none">
                       {post.title.charAt(0)}
                     </span>
                   </div>
