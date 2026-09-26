@@ -3,7 +3,7 @@
  * OrnateFrame — "Marco III", rococo mirror frame.
  *
  * 9-slice: the four corners, the crest and the bottom drop are fixed-size
- * SVGs; the gilded bands between them, the bead rule and the fine rule
+ * SVGs; the gilded bands between them and the fine inner rule
  * stretch with the content, so the frame fits any width and height.
  * All ornament is decorative (aria-hidden) and colored via tokens.
  *
@@ -25,7 +25,6 @@ const id = `of${count}`;
     <div class='band band-b' aria-hidden='true'></div>
     <div class='band band-l' aria-hidden='true'></div>
     <div class='band band-r' aria-hidden='true'></div>
-    <div class='beads' aria-hidden='true'></div>
     <div class='fine' aria-hidden='true'></div>
 
     <svg viewBox='-22 -30 162 170' class='corner tl' aria-hidden='true'>
@@ -115,10 +114,11 @@ const id = `of${count}`;
     display: flex;
     flex-direction: column;
     flex: 1;
+    /* Content sits ~20px (sides 16px) inside the fine rule */
     padding:
-      calc(72px * var(--s) + 18px)
-      calc(64px * var(--s) + 16px)
-      calc(72px * var(--s) + 14px);
+      calc(72px * var(--s) + 20px)
+      calc(72px * var(--s) + 16px)
+      calc(72px * var(--s) + 22px);
     filter: drop-shadow(0 12px 14px color-mix(in srgb, var(--ornament-line) 18%, transparent));
   }
 
@@ -168,12 +168,7 @@ const id = `of${count}`;
   .band-l { left: calc(20px * var(--s)); }
   .band-r { right: calc(20px * var(--s)); }
 
-  /* Bead rule and fine inner rule */
-  .beads {
-    position: absolute;
-    inset: calc(64px * var(--s));
-    border: 1.5px dotted var(--ornament-shadow);
-  }
+  /* Fine inner rule */
   .fine {
     position: absolute;
     inset: calc(72px * var(--s));

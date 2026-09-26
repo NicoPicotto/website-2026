@@ -109,6 +109,10 @@
     /* Paper grain strength (see body::after) */
     --grain-opacity: 0.33;
 
+    /* Card images: blend with the palette, full color on hover/focus */
+    --img-sepia:    0.35;
+    --img-saturate: 0.8;
+
     /* Shiki `css-variables` theme (code blocks in articles) */
     --astro-code-foreground:              var(--color-ink);
     --astro-code-background:              var(--color-ivory);
@@ -317,6 +321,20 @@
       inset 0 0 0 3px var(--secondary),
       inset 0 0 0 4px var(--secondary-ornament),
       0 6px 0 -2px var(--foreground);
+  }
+
+  /* Card image — partial sepia, slightly desaturated; recovers its
+     original color when the card (.group) is hovered or focused. */
+  .card-img {
+    filter: sepia(var(--img-sepia)) saturate(var(--img-saturate));
+    transition: filter 400ms ease;
+  }
+  .group:hover .card-img,
+  .group:focus-visible .card-img {
+    filter: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-img { transition: none; }
   }
 
   /* Plate — ivory card with an outer double rule (blog cards) */

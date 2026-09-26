@@ -20,7 +20,7 @@ const formattedDate = publishDate.toLocaleDateString('en-US', {
 <a href={href} class="group plate flex-1 flex flex-col overflow-hidden hover:border-(--primary) transition-colors">
   <!-- Cover -->
   {cover ? (
-    <img src={cover} alt={title} class="w-full aspect-video object-cover" />
+    <img src={cover} alt={title} class="card-img w-full aspect-video object-cover" />
   ) : (
     <div class="w-full aspect-video bg-(--muted) flex items-center justify-center">
       <span class="font-heading text-4xl font-bold text-(--subtle-foreground) select-none">

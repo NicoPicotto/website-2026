@@ -6,7 +6,6 @@ import CaseStudyCard from "../components/CaseStudyCard.astro";
 import ContactForm from "../components/ContactForm.tsx";
 import Reveal from "astro-reveal/Reveal.astro";
 import Divider from "../components/ornament/Divider.astro";
-import Medallion from "../components/ornament/Medallion.astro";
 
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const latestPosts = allPosts
@@ -78,7 +77,13 @@ const skills = [
 
          <!-- Photo -->
          <Reveal animation='fade' class='flex justify-center lg:justify-end'>
-            <Medallion src='/hero-image.png' alt='Nicolas Picotto' />
+            <img
+               src='/hero-image.png'
+               alt='Nicolas Picotto'
+               width='800'
+               height='800'
+               class='w-full max-w-[22.5rem] h-auto'
+            />
          </Reveal>
       </div>
    </section>
@@ -103,7 +108,7 @@ const skills = [
             View all →
          </a>
       </Reveal>
-      <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-6'>
+      <div class='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-6'>
          {
             latestStudies.map((study, i) => (
                <Reveal animation='up' index={i} class='flex'>

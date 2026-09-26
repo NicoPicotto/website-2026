@@ -88,7 +88,7 @@ export default function BlogSearch({ posts, allTags }: Props) {
                 className="group plate flex flex-col overflow-hidden hover:border-(--primary) transition-colors"
               >
                 {post.cover ? (
-                  <img src={post.cover} alt={post.title} className="w-full aspect-video object-cover" />
+                  <img src={post.cover} alt={post.title} className="card-img w-full aspect-video object-cover" />
                 ) : (
                   <div className="w-full aspect-video bg-(--muted) flex items-center justify-center">
                     <span className="font-heading text-4xl font-bold text-(--subtle-foreground) select-none">
