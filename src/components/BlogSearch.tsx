@@ -40,14 +40,14 @@ export default function BlogSearch({ posts, allTags }: Props) {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search posts..."
-          className="w-full bg-(--card) border border-(--border) rounded-lg px-4 py-2.5 text-sm text-(--foreground) placeholder:text-(--muted-foreground) focus:outline-none focus:border-(--primary) transition-colors"
+          className="w-full bg-(--card) border border-(--border) px-4 py-2.5 text-sm text-(--foreground) placeholder:text-(--muted-foreground) focus:outline-none focus:border-(--primary) transition-colors"
         />
 
         {allTags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setActiveTag(null)}
-              className={`text-xs px-3 py-1 rounded-full border transition-colors ${
+              className={`tag border transition-colors ${
                 activeTag === null
                   ? 'border-(--primary) text-(--primary)'
                   : 'border-(--border) text-(--muted-foreground) hover:border-(--foreground) hover:text-(--foreground)'
@@ -59,7 +59,7 @@ export default function BlogSearch({ posts, allTags }: Props) {
               <button
                 key={tag}
                 onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-                className={`text-xs px-3 py-1 rounded-full border transition-colors ${
+                className={`tag border transition-colors ${
                   activeTag === tag
                     ? 'border-(--primary) text-(--primary)'
                     : 'border-(--border) text-(--muted-foreground) hover:border-(--foreground) hover:text-(--foreground)'
@@ -85,7 +85,7 @@ export default function BlogSearch({ posts, allTags }: Props) {
               <a
                 key={post.id}
                 href={post.url}
-                className="group flex flex-col bg-(--card) border border-(--border) rounded-xl overflow-hidden hover:border-(--primary) transition-colors"
+                className="group plate flex flex-col overflow-hidden hover:border-(--primary) transition-colors"
               >
                 {post.cover ? (
                   <img src={post.cover} alt={post.title} className="w-full aspect-video object-cover" />
@@ -102,7 +102,7 @@ export default function BlogSearch({ posts, allTags }: Props) {
                       {post.tags.map((tag) => (
                         <li
                           key={tag}
-                          className="text-xs px-2 py-0.5 rounded-full border border-(--border) text-(--muted-foreground)"
+                          className="tag"
                         >
                           {tag}
                         </li>
@@ -110,10 +110,10 @@ export default function BlogSearch({ posts, allTags }: Props) {
                     </ul>
                   )}
                   <div className="flex flex-col gap-1.5 flex-1">
-                    <h3 className="font-heading font-semibold text-base leading-snug group-hover:text-(--primary) transition-colors">
+                    <h3 className="text-xl leading-tight group-hover:text-(--primary) transition-colors">
                       {post.title}
                     </h3>
-                    <p className="text-sm text-(--muted-foreground) line-clamp-2">{post.description}</p>
+                    <p className="text-sm text-(--foreground) line-clamp-2">{post.description}</p>
                   </div>
                   <time className="text-xs text-(--muted-foreground) mt-auto">{date}</time>
                 </div>

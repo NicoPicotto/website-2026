@@ -7,7 +7,7 @@ export default function ContactForm() {
     return (
       <div className="flex flex-col gap-3 py-10">
         <p className="font-heading text-xl font-semibold">Message sent!</p>
-        <p className="text-sm text-(--muted-foreground)">
+        <p className="text-sm text-(--foreground)">
           Thanks for reaching out. I'll get back to you as soon as possible.
         </p>
       </div>
@@ -27,7 +27,7 @@ export default function ContactForm() {
           name="name"
           required
           placeholder="Your name"
-          className="bg-(--card) border border-(--border) rounded-lg px-4 py-2.5 text-sm placeholder:text-(--muted-foreground) focus:outline-none focus:border-(--primary) transition-colors"
+          className="bg-(--card) border border-(--border) px-4 py-2.5 text-sm placeholder:text-(--muted-foreground) focus:outline-none focus:border-(--primary) transition-colors"
         />
       </div>
 
@@ -42,7 +42,7 @@ export default function ContactForm() {
           name="email"
           required
           placeholder="your@email.com"
-          className="bg-(--card) border border-(--border) rounded-lg px-4 py-2.5 text-sm placeholder:text-(--muted-foreground) focus:outline-none focus:border-(--primary) transition-colors"
+          className="bg-(--card) border border-(--border) px-4 py-2.5 text-sm placeholder:text-(--muted-foreground) focus:outline-none focus:border-(--primary) transition-colors"
         />
         <ValidationError
           field="email"
@@ -63,7 +63,7 @@ export default function ContactForm() {
           required
           rows={5}
           placeholder="What are you working on? What do you need help with?"
-          className="bg-(--card) border border-(--border) rounded-lg px-4 py-2.5 text-sm placeholder:text-(--muted-foreground) focus:outline-none focus:border-(--primary) transition-colors resize-none"
+          className="bg-(--card) border border-(--border) px-4 py-2.5 text-sm placeholder:text-(--muted-foreground) focus:outline-none focus:border-(--primary) transition-colors resize-none"
         />
         <ValidationError
           field="message"
@@ -77,7 +77,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={state.submitting}
-        className="self-start inline-flex items-center px-5 py-2.5 rounded-lg bg-(--primary) text-(--primary-foreground) text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        className="btn-primary self-start disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {state.submitting ? 'Sending…' : 'Send message'}
       </button>

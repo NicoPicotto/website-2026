@@ -2,31 +2,54 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* ─── Self-hosted variable fonts ─────────────────────────────────────────── */
-@import "@fontsource-variable/rubik";
-@import "@fontsource-variable/dm-sans";
+/* ─── Self-hosted fonts ──────────────────────────────────────────────────── */
+/* Bodoni Moda — display (optical size + weight axes, roman & italic)        */
+@import "@fontsource-variable/bodoni-moda/opsz.css";
+@import "@fontsource-variable/bodoni-moda/opsz-italic.css";
+/* Cormorant Garamond — body (roman & italic)                                */
+@import "@fontsource-variable/cormorant-garamond/wght.css";
+@import "@fontsource-variable/cormorant-garamond/wght-italic.css";
+/* Cormorant SC — eyebrows, kickers, tags                                    */
+@import "@fontsource/cormorant-sc/500.css";
+@import "@fontsource/cormorant-sc/600.css";
+@import "@fontsource/cormorant-sc/700.css";
 
 /* ─── Tailwind v4 theme extension ────────────────────────────────────────── */
 /* Replaces tailwind.config.js — all tokens registered here are available    */
-/* as utilities: font-heading, bg-terracotta, text-pearl, etc.               */
+/* as utilities: font-heading, font-smallcaps, text-sm, etc.                 */
 @theme {
-  --font-heading: 'Rubik Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'DM Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-heading:   'Bodoni Moda Variable', 'Bodoni Moda', Didot, Georgia, serif;
+  --font-sans:      'Cormorant Garamond Variable', 'Cormorant Garamond', Garamond, Georgia, serif;
+  --font-smallcaps: 'Cormorant SC', 'Cormorant Garamond Variable', Garamond, Georgia, serif;
+
+  /* Cormorant has a small x-height: the small end of the scale is bumped    */
+  /* (~+2px) so existing text-xs…text-xl classes keep reading comfortably.   */
+  --text-xs:   0.875rem;   --text-xs--line-height:   1.35;
+  --text-sm:   1.0625rem;  --text-sm--line-height:   1.45;
+  --text-base: 1.1875rem;  --text-base--line-height: 1.55;
+  --text-lg:   1.3125rem;  --text-lg--line-height:   1.5;
+  --text-xl:   1.4375rem;  --text-xl--line-height:   1.5;
 
   /* Palette tokens — the only place where raw color values live.            */
   /* Components never use these directly: they go through the semantic       */
   /* variables in :root below.                                               */
-  --color-ink-900:      oklch(16% 0 0);          /* #262626 — page */
-  --color-ink-800:      oklch(21% 0 0);          /* cards, inputs */
-  --color-charcoal:     oklch(38% 0.002 285);    /* #595859 */
-  --color-terracotta:   oklch(62% 0.18 27);
-  --color-pearl:        oklch(96% 0 0);          /* #F2F2F2 */
-  --color-white:        oklch(100% 0 0);
-  --color-black:        oklch(0% 0 0);
-  --color-red-400:      oklch(70.4% 0.191 22.216);
-  --color-webflow-blue: #146EF5;
-  --color-olive:        #5F6130;
-  --color-gold:         #B08A3E;
+  --color-blood:        #7B1E1E;   /* Sangre de Toro — titles, CTA */
+  --color-ink:          #2B2118;   /* Tinta Sepia — text, lines */
+  --color-olive:        #5F6130;   /* Verde Oliva — kickers, tags, CTA 2º */
+  --color-paper:        #EDE2C8;   /* Papel Libreto — page */
+  --color-paper-light:  #F4ECD8;   /* vignette centre */
+  --color-paper-edge:   #E9DDBF;   /* vignette edge (lightened for AA with grain) */
+  --color-ivory:        #F8F2E4;   /* Marfil Ópera — cards */
+  --color-sepia-muted:  #635B51;   /* secondary text (AA on paper-edge) */
+
+  --color-gold:         #B08A3E;   /* Oro Viejo — ornament only */
+  --color-gold-light:   #D9B46A;
+  --color-gold-deep:    #8A6A2A;
+  --color-gold-soft:    #C9A158;
+  --color-ochre:        #7A5A1E;   /* Ocre Grabado — shadow of gold */
+
+  --color-damask-line:  #CBB978;
+  --color-damask-fill:  #8A8646;
 }
 
 /* ─── Semantic variables (shadcn-style) ──────────────────────────────────── */
@@ -34,58 +57,275 @@
 @layer base {
   :root {
     /* Page background & default text */
-    --background: var(--color-ink-900);
-    --foreground: var(--color-pearl);
+    --background: var(--color-paper);
+    --foreground: var(--color-ink);
 
     /* Card / elevated surfaces */
-    --card:  var(--color-ink-800);
-    --muted: var(--color-ink-800);
+    --card:  var(--color-ivory);
+    --muted: var(--color-paper-light);
 
     /* Primary action */
-    --primary:            var(--color-terracotta);
-    --primary-foreground: var(--color-pearl);
+    --primary:            var(--color-blood);
+    --primary-foreground: var(--color-ivory);
 
     /* Secondary voice (kickers, tags, secondary CTA) */
     --secondary:            var(--color-olive);
-    --secondary-foreground: var(--color-pearl);
+    --secondary-foreground: var(--color-ivory);
 
     /* Text */
-    --muted-foreground:  var(--color-pearl);    /* secondary text */
-    --subtle-foreground: var(--color-charcoal); /* decorative initials on empty covers */
-
-    /* Inverted surface (secondary button hover) */
-    --inverse:            var(--color-white);
-    --inverse-foreground: var(--color-black);
+    --muted-foreground:  var(--color-sepia-muted); /* secondary text */
+    --subtle-foreground: var(--color-sepia-muted); /* decorative initials on empty covers */
 
     /* Lines */
-    --border: var(--color-charcoal);
+    --border: var(--color-ink);
 
     /* Ornament (SVG frames, dividers) */
-    --ornament: var(--color-gold);
+    --ornament:       var(--color-gold);
+    --ornament-light: var(--color-gold-light);
 
     /* States */
-    --error: var(--color-red-400);
+    --error: var(--color-blood);
 
     /* Certification badge */
-    --badge: var(--color-webflow-blue);
+    --badge: var(--color-olive);
 
-    --radius: 0.5rem;
+    --radius: 0;
+
+    /* Shiki `css-variables` theme (code blocks in articles) */
+    --astro-code-foreground:              var(--color-ink);
+    --astro-code-background:              var(--color-ivory);
+    --astro-code-token-keyword:           var(--color-blood);
+    --astro-code-token-constant:          var(--color-ochre);
+    --astro-code-token-string:            var(--color-olive);
+    --astro-code-token-string-expression: var(--color-olive);
+    --astro-code-token-comment:           var(--color-sepia-muted);
+    --astro-code-token-parameter:         var(--color-ink);
+    --astro-code-token-function:          var(--color-blood);
+    --astro-code-token-punctuation:       var(--color-sepia-muted);
+    --astro-code-token-link:              var(--color-blood);
   }
 
   /* Base typography */
   body {
-    background-color: var(--background);
     color: var(--foreground);
+    background-color: var(--background);
     font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 500;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Aged paper: engraving grain (multiplied) over a soft vignette.          */
+  /* Fixed layer instead of background-attachment: fixed (ignored on iOS).   */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .32 0 0 0 0 .18 0 0 0 .45 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.25'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse 80% 60% at 50% 40%, var(--color-paper-light) 0%, var(--color-paper) 55%, var(--color-paper-edge) 100%);
+    background-size: 240px 240px, 100% 100%;
+    background-blend-mode: multiply, normal;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
   }
 
+  h1, h3 {
+    font-weight: 800;
+  }
+
+  /* Section titles: Bodoni italic in blood */
+  h2 {
+    font-style: italic;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
   * {
     border-color: var(--border);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+}
+
+/* ─── Style-tile components ──────────────────────────────────────────────── */
+@layer components {
+  /* Eyebrow — small caps in blood (hero) */
+  .eyebrow {
+    font-family: var(--font-smallcaps);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    letter-spacing: 0.24em;
+    color: var(--primary);
+  }
+  @media (width >= 40rem) {
+    .eyebrow { letter-spacing: 0.38em; }
+  }
+
+  /* Kicker — small caps in olive (above section titles) */
+  .kicker {
+    font-family: var(--font-smallcaps);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    letter-spacing: 0.34em;
+    color: var(--secondary);
+  }
+
+  /* Tag — square small-caps label with a hairline */
+  .tag {
+    font-family: var(--font-smallcaps);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: 0.16em;
+    line-height: 1.4;
+    padding: 0.125rem 0.625rem;
+    color: var(--secondary);
+    border: 1px solid var(--secondary);
+  }
+
+  /* Inline link — italic, underlined; olive with double rule on hover */
+  .link {
+    color: var(--primary);
+    font-style: italic;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 5px;
+    transition: color 150ms;
+  }
+  .link:hover {
+    color: var(--secondary);
+    text-decoration-style: double;
+  }
+
+  /* Buttons — Bodoni italic, engraved inner rule */
+  .btn-primary,
+  .btn-secondary {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.25rem;
+    padding: 0.75rem 2.25rem;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    border: 1px solid var(--border);
+    transition: background-color 150ms, color 150ms, box-shadow 150ms;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: inset 0 0 0 4px var(--primary), inset 0 0 0 5px var(--ornament-light);
+  }
+  .btn-primary:hover {
+    background: var(--foreground);
+    box-shadow:
+      inset 0 0 0 4px var(--foreground),
+      inset 0 0 0 5px var(--ornament-light),
+      0 6px 0 -2px var(--primary);
+  }
+  /* Rocaille flourishes that appear on hover */
+  .btn-primary::before,
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 1.25rem;
+    height: 0.625rem;
+    margin-top: -0.3125rem;
+    background: var(--ornament-light);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M2,6 C8,6 10,1 15,1 C19,1 20,5 17,6 C20,7 19,11 15,11 C10,11 8,6 2,6' fill='none' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M2,6 C8,6 10,1 15,1 C19,1 20,5 17,6 C20,7 19,11 15,11 C10,11 8,6 2,6' fill='none' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E") center / contain no-repeat;
+    opacity: 0;
+    transition: opacity 150ms;
+  }
+  .btn-primary::before { left: 0.625rem; }
+  .btn-primary::after  { right: 0.625rem; transform: scaleX(-1); }
+  .btn-primary:hover::before,
+  .btn-primary:hover::after { opacity: 1; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--secondary);
+    border-color: var(--secondary);
+    box-shadow: inset 0 0 0 3px var(--background), inset 0 0 0 4px var(--secondary);
+  }
+  .btn-secondary:hover {
+    background: var(--secondary);
+    color: var(--secondary-foreground);
+    border-color: var(--border);
+    box-shadow: inset 0 0 0 3px var(--secondary), inset 0 0 0 4px var(--ornament-light);
+  }
+
+  /* Plate — ivory card with an outer double rule (blog cards) */
+  .plate {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 0 0 4px var(--card), 0 0 0 5px var(--border);
+  }
+}
+
+/* ─── Typography plugin (articles) ───────────────────────────────────────── */
+@layer utilities {
+  .prose {
+    --tw-prose-body:         var(--foreground);
+    --tw-prose-headings:     var(--primary);
+    --tw-prose-lead:         var(--muted-foreground);
+    --tw-prose-links:        var(--primary);
+    --tw-prose-bold:         var(--foreground);
+    --tw-prose-counters:     var(--muted-foreground);
+    --tw-prose-bullets:      var(--ornament);
+    --tw-prose-hr:           var(--ornament);
+    --tw-prose-quotes:       var(--secondary);
+    --tw-prose-quote-borders: var(--secondary);
+    --tw-prose-captions:     var(--muted-foreground);
+    --tw-prose-kbd:          var(--foreground);
+    --tw-prose-code:         var(--primary);
+    --tw-prose-pre-code:     var(--astro-code-foreground);
+    --tw-prose-pre-bg:       var(--astro-code-background);
+    --tw-prose-th-borders:   var(--border);
+    --tw-prose-td-borders:   var(--muted-foreground);
+    font-size: var(--text-lg);
+    line-height: 1.6;
+  }
+
+  .prose :where(a):not(:where([class~="not-prose"] *)) {
+    font-style: italic;
+    font-weight: 600;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 5px;
+  }
+  .prose :where(a):not(:where([class~="not-prose"] *)):hover {
+    color: var(--secondary);
+    text-decoration-style: double;
+  }
+
+  .prose :where(pre):not(:where([class~="not-prose"] *)) {
+    border: 1px solid var(--border);
+    border-radius: 0;
+  }
+
+  .prose :where(img):not(:where([class~="not-prose"] *)) {
+    border: 1px solid var(--border);
   }
 }

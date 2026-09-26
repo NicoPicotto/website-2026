@@ -9,6 +9,10 @@ export default defineConfig({
   site: 'https://nicopicotto.dev',
   output: 'static',
   integrations: [react(), reveal({ mode: 'observer' }), sitemap()],
+  markdown: {
+    // Colors come from --astro-code-* in src/styles/globals.css
+    shikiConfig: { theme: 'css-variables' },
+  },
   vite: {
     plugins: [tailwindcss()],
   },

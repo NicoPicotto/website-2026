@@ -9,13 +9,13 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header
-   class='fixed top-0 left-0 right-0 z-50 border-b border-(--border) bg-(--background)/70 backdrop-blur-sm'
+   class='fixed top-0 left-0 right-0 z-50 border-b border-(--border) shadow-[0_4px_0_-3px_var(--border)] bg-(--background)/85 backdrop-blur-sm'
 >
    <div class='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
       <div class='flex items-center justify-between h-16'>
          <a
             href='/'
-            class='font-heading font-semibold text-lg tracking-tight hover:text-(--primary) transition-colors'
+            class='font-heading italic font-bold text-xl text-(--primary) hover:text-(--secondary) transition-colors'
          >
             NP
          </a>
