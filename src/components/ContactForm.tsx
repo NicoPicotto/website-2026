@@ -6,8 +6,8 @@ export default function ContactForm() {
   if (state.succeeded) {
     return (
       <div className="flex flex-col gap-3 py-10">
-        <p className="font-heading text-xl font-semibold">Message sent!</p>
-        <p className="text-sm text-(--foreground)">
+        <p className="font-heading italic font-bold text-3xl text-(--primary)">Message sent!</p>
+        <p className="text-(--foreground)">
           Thanks for reaching out. I'll get back to you as soon as possible.
         </p>
       </div>
@@ -15,10 +15,10 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
       {/* Name */}
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="name" className="text-sm font-medium">
+      <div className="flex flex-col gap-2">
+        <label htmlFor="name" className="font-smallcaps font-bold tracking-[0.08em]">
           Name
         </label>
         <input
@@ -27,13 +27,13 @@ export default function ContactForm() {
           name="name"
           required
           placeholder="Your name"
-          className="bg-(--card) border border-(--border) px-4 py-2.5 text-sm placeholder:text-(--muted-foreground) focus:outline-none focus:border-(--primary) transition-colors"
+          className="field"
         />
       </div>
 
       {/* Email */}
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="email" className="text-sm font-medium">
+      <div className="flex flex-col gap-2">
+        <label htmlFor="email" className="font-smallcaps font-bold tracking-[0.08em]">
           Email
         </label>
         <input
@@ -42,19 +42,19 @@ export default function ContactForm() {
           name="email"
           required
           placeholder="your@email.com"
-          className="bg-(--card) border border-(--border) px-4 py-2.5 text-sm placeholder:text-(--muted-foreground) focus:outline-none focus:border-(--primary) transition-colors"
+          className="field"
         />
         <ValidationError
           field="email"
           prefix="Email"
           errors={state.errors}
-          className="text-xs text-(--error)"
+          className="text-sm italic text-(--error)"
         />
       </div>
 
       {/* Message */}
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="message" className="text-sm font-medium">
+      <div className="flex flex-col gap-2">
+        <label htmlFor="message" className="font-smallcaps font-bold tracking-[0.08em]">
           Tell me about a project you're interested in
         </label>
         <textarea
@@ -63,13 +63,13 @@ export default function ContactForm() {
           required
           rows={5}
           placeholder="What are you working on? What do you need help with?"
-          className="bg-(--card) border border-(--border) px-4 py-2.5 text-sm placeholder:text-(--muted-foreground) focus:outline-none focus:border-(--primary) transition-colors resize-none"
+          className="field resize-none"
         />
         <ValidationError
           field="message"
           prefix="Message"
           errors={state.errors}
-          className="text-xs text-(--error)"
+          className="text-sm italic text-(--error)"
         />
       </div>
 

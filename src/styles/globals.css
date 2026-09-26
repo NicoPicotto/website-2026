@@ -323,6 +323,25 @@
       0 6px 0 -2px var(--foreground);
   }
 
+  /* Form field — ivory, ink hairline, blood on focus (keeps the global
+     :focus-visible outline for keyboard users). */
+  .field {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: var(--text-base);
+    line-height: 1.4;
+    color: var(--foreground);
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: border-color 150ms;
+  }
+  .field::placeholder {
+    color: var(--muted-foreground);
+  }
+  .field:focus {
+    border-color: var(--primary);
+  }
+
   /* Card image — partial sepia, slightly desaturated; recovers its
      original color when the card (.group) is hovered or focused. */
   .card-img {

@@ -40,13 +40,15 @@ export default function BlogSearch({ posts, allTags }: Props) {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search posts..."
-          className="w-full bg-(--card) border border-(--border) px-4 py-2.5 text-sm text-(--foreground) placeholder:text-(--muted-foreground) focus:outline-none focus:border-(--primary) transition-colors"
+          aria-label="Search posts"
+          className="field"
         />
 
         {allTags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setActiveTag(null)}
+              aria-pressed={activeTag === null}
               className={`tag border transition-colors ${
                 activeTag === null
                   ? 'border-(--primary) text-(--primary)'
@@ -59,6 +61,7 @@ export default function BlogSearch({ posts, allTags }: Props) {
               <button
                 key={tag}
                 onClick={() => setActiveTag(activeTag === tag ? null : tag)}
+                aria-pressed={activeTag === tag}
                 className={`tag border transition-colors ${
                   activeTag === tag
                     ? 'border-(--primary) text-(--primary)'
@@ -122,7 +125,7 @@ export default function BlogSearch({ posts, allTags }: Props) {
           })}
         </div>
       ) : (
-        <p className="text-(--muted-foreground) text-sm py-8 text-center">
+        <p className="text-(--muted-foreground) italic py-8 text-center">
           No posts match your search.
         </p>
       )}
