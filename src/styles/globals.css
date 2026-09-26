@@ -30,6 +30,11 @@
   --text-lg:   1.3125rem;  --text-lg--line-height:   1.5;
   --text-xl:   1.4375rem;  --text-xl--line-height:   1.5;
 
+  /* Hero H1 — ~108px on desktop (style tile), scales down fluidly */
+  --text-display: clamp(4.5rem, 2.5rem + 7vw, 6.75rem);
+  --text-display--line-height: 0.92;
+  --text-display--letter-spacing: -0.01em;
+
   /* Palette tokens — the only place where raw color values live.            */
   /* Components never use these directly: they go through the semantic       */
   /* variables in :root below.                                               */
@@ -71,6 +76,7 @@
     /* Secondary voice (kickers, tags, secondary CTA) */
     --secondary:            var(--color-olive);
     --secondary-foreground: var(--color-ivory);
+    --secondary-ornament:   var(--color-damask-line); /* olive's ornament tone */
 
     /* Text */
     --muted-foreground:  var(--color-sepia-muted); /* secondary text */
@@ -90,6 +96,9 @@
     --badge: var(--color-olive);
 
     --radius: 0;
+
+    /* Paper grain strength (see body::after) */
+    --grain-opacity: 0.33;
 
     /* Shiki `css-variables` theme (code blocks in articles) */
     --astro-code-foreground:              var(--color-ink);
@@ -116,19 +125,27 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Aged paper: engraving grain (multiplied) over a soft vignette.          */
-  /* Fixed layer instead of background-attachment: fixed (ignored on iOS).   */
-  body::before {
+  /* Aged paper: soft vignette (::before) + fibre grain (::after).           */
+  /* The grain is grey noise centred on ~50% blended with soft-light, so it   */
+  /* adds both light and dark specks without shifting the mean tone of the   */
+  /* paper — that keeps text contrast AA while the texture stays visible.    */
+  /* Tune its strength with --grain-opacity (0 = off, 1 = max).              */
+  /* Fixed layers instead of background-attachment: fixed (ignored on iOS).  */
+  body::before,
+  body::after {
     content: '';
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .32 0 0 0 0 .18 0 0 0 .45 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.25'/%3E%3C/svg%3E"),
-      radial-gradient(ellipse 80% 60% at 50% 40%, var(--color-paper-light) 0%, var(--color-paper) 55%, var(--color-paper-edge) 100%);
-    background-size: 240px 240px, 100% 100%;
-    background-blend-mode: multiply, normal;
+  }
+  body::before {
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, var(--color-paper-light) 0%, var(--color-paper) 55%, var(--color-paper-edge) 100%);
+  }
+  body::after {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='4 0 0 0 -1.54 4 0 0 0 -1.54 4 0 0 0 -1.54 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E") 0 0 / 240px 240px;
+    mix-blend-mode: soft-light;
+    opacity: var(--grain-opacity);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -191,10 +208,10 @@
   .tag {
     font-family: var(--font-smallcaps);
     font-weight: 700;
-    font-size: 0.8125rem;
-    letter-spacing: 0.16em;
-    line-height: 1.4;
-    padding: 0.125rem 0.625rem;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    line-height: 1.35;
+    padding: 0.125rem 0.625rem 0.1875rem;
     color: var(--secondary);
     border: 1px solid var(--secondary);
   }
@@ -232,7 +249,35 @@
     transition: background-color 150ms, color 150ms, box-shadow 150ms;
   }
 
+  /* Rocaille flourishes that appear on hover (color set per button) */
+  .btn-primary::before,
+  .btn-primary::after,
+  .btn-secondary::before,
+  .btn-secondary::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 1.25rem;
+    height: 0.625rem;
+    margin-top: -0.3125rem;
+    background: var(--btn-flourish);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M2,6 C8,6 10,1 15,1 C19,1 20,5 17,6 C20,7 19,11 15,11 C10,11 8,6 2,6' fill='none' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M2,6 C8,6 10,1 15,1 C19,1 20,5 17,6 C20,7 19,11 15,11 C10,11 8,6 2,6' fill='none' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E") center / contain no-repeat;
+    opacity: 0;
+    transition: opacity 150ms;
+  }
+  .btn-primary::before,
+  .btn-secondary::before { left: 0.625rem; }
+  .btn-primary::after,
+  .btn-secondary::after  { right: 0.625rem; transform: scaleX(-1); }
+  .btn-primary:hover::before,
+  .btn-primary:hover::after,
+  .btn-secondary:hover::before,
+  .btn-secondary:hover::after { opacity: 1; }
+
+  /* Primary — blood; hover: ink with gold rule, gold flourishes, blood lip */
   .btn-primary {
+    --btn-flourish: var(--ornament-light);
     background: var(--primary);
     color: var(--primary-foreground);
     box-shadow: inset 0 0 0 4px var(--primary), inset 0 0 0 5px var(--ornament-light);
@@ -244,27 +289,12 @@
       inset 0 0 0 5px var(--ornament-light),
       0 6px 0 -2px var(--primary);
   }
-  /* Rocaille flourishes that appear on hover */
-  .btn-primary::before,
-  .btn-primary::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 1.25rem;
-    height: 0.625rem;
-    margin-top: -0.3125rem;
-    background: var(--ornament-light);
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M2,6 C8,6 10,1 15,1 C19,1 20,5 17,6 C20,7 19,11 15,11 C10,11 8,6 2,6' fill='none' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E") center / contain no-repeat;
-            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M2,6 C8,6 10,1 15,1 C19,1 20,5 17,6 C20,7 19,11 15,11 C10,11 8,6 2,6' fill='none' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E") center / contain no-repeat;
-    opacity: 0;
-    transition: opacity 150ms;
-  }
-  .btn-primary::before { left: 0.625rem; }
-  .btn-primary::after  { right: 0.625rem; transform: scaleX(-1); }
-  .btn-primary:hover::before,
-  .btn-primary:hover::after { opacity: 1; }
 
+  /* Secondary — olive outline; hover: olive fill, same gesture but without */
+  /* gold (gold stays exclusive to the primary): damask-olive rule and      */
+  /* flourishes, ink lip.                                                   */
   .btn-secondary {
+    --btn-flourish: var(--secondary-ornament);
     background: transparent;
     color: var(--secondary);
     border-color: var(--secondary);
@@ -274,7 +304,10 @@
     background: var(--secondary);
     color: var(--secondary-foreground);
     border-color: var(--border);
-    box-shadow: inset 0 0 0 3px var(--secondary), inset 0 0 0 4px var(--ornament-light);
+    box-shadow:
+      inset 0 0 0 3px var(--secondary),
+      inset 0 0 0 4px var(--secondary-ornament),
+      0 6px 0 -2px var(--foreground);
   }
 
   /* Plate — ivory card with an outer double rule (blog cards) */

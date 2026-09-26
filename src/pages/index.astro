@@ -47,7 +47,7 @@ const skills = [
                FullStack Dev & Designer
             </p>
             <h1
-               class='text-6xl sm:text-7xl lg:text-8xl leading-[0.92] tracking-[-0.01em]'
+               class='text-display'
             >
                Nicolas <span class='block italic font-bold text-(--primary)'>Picotto</span>
             </h1>
@@ -104,7 +104,7 @@ const skills = [
       <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
          {
             latestStudies.map((study, i) => (
-               <Reveal animation='up' index={i}>
+               <Reveal animation='up' index={i} class='flex'>
                   <CaseStudyCard
                      title={study.data.title}
                      summary={study.data.summary}
@@ -142,7 +142,7 @@ const skills = [
       <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
          {
             latestPosts.map((post, i) => (
-               <Reveal animation='up' index={i}>
+               <Reveal animation='up' index={i} class='flex'>
                   <PostCard
                      title={post.data.title}
                      description={post.data.description}

@@ -13,7 +13,7 @@ interface Props {
 const { title, summary, client, year, tags, href, cover } = Astro.props;
 ---
 
-<a href={href} class="group plate flex flex-col overflow-hidden hover:border-(--primary) transition-colors">
+<a href={href} class="group plate flex-1 flex flex-col overflow-hidden hover:border-(--primary) transition-colors">
   <!-- Cover -->
   {cover ? (
     <img src={cover} alt={title} class="w-full aspect-video object-cover" />
