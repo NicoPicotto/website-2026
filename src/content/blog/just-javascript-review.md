@@ -7,8 +7,6 @@ tags: ["javascript", "learning", "opinion"]
 draft: false
 ---
 
-# Why Just JavaScript Should Be Required Reading for Every Dev
-
 A few years ago I saw a tweet recommending a paid course called [Just JavaScript](https://justjavascript.com/), by Dan Abramov and Maggie Appleton. I had just finished a fullstack bootcamp, and I figured I'd give it a shot. It ended up being one of the most useful things I've ever paid for as a developer, and I still recommend it to pretty much anyone who asks me how to get better at JavaScript.
 
 ---

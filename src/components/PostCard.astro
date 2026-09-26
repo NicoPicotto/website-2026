@@ -1,4 +1,6 @@
 ---
+import PlateCorners from './ornament/PlateCorners.tsx';
+
 interface Props {
   title: string;
   description: string;
@@ -17,7 +19,8 @@ const formattedDate = publishDate.toLocaleDateString('en-US', {
 });
 ---
 
-<a href={href} class="group plate flex-1 flex flex-col overflow-hidden hover:border-(--primary) transition-colors">
+<a href={href} class="group plate flex-1 flex flex-col hover:border-(--primary) transition-colors">
+  <PlateCorners />
   <!-- Cover -->
   {cover ? (
     <img src={cover} alt={title} class="card-img w-full aspect-video object-cover" />

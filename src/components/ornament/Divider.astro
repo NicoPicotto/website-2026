@@ -3,9 +3,28 @@
  * Divider — rocaille section separator.
  * Two double rules stretch to fill any width; the rocaille in the middle
  * (gold almond with a blood bead) keeps its size. Decorative only.
+ *
+ * `minimal`: a single hairline with just the almond and bead (navbar).
  */
+interface Props {
+  minimal?: boolean;
+}
+
+const { minimal = false } = Astro.props;
 ---
 
+{minimal ? (
+<div class='divider minimal' aria-hidden='true'>
+  <span class='rule'></span>
+  <svg viewBox='624 0 32 20' class='almond'>
+    <g class='ink'>
+      <path d='M640,1 C647,6 647,14 640,19 C633,14 633,6 640,1 Z' class='fill-gold' stroke-width='1'></path>
+      <circle cx='640' cy='10' r='2.5' class='fill-blood' stroke='none'></circle>
+    </g>
+  </svg>
+  <span class='rule rule-end'></span>
+</div>
+) : (
 <div class='divider' aria-hidden='true'>
   <span class='rule'></span>
   <svg viewBox='488 0 144 60' class='rocaille'>
@@ -21,6 +40,7 @@
   </svg>
   <span class='rule rule-end'></span>
 </div>
+)}
 
 <style>
   .divider {
@@ -64,6 +84,28 @@
     flex: none;
     width: 144px;
     height: 60px;
+    overflow: visible;
+  }
+
+  /* Minimal: one 1px hairline each side, almond in the middle */
+  .minimal {
+    height: 20px;
+  }
+  .minimal .rule {
+    height: 20px;
+    background: none;
+  }
+  .minimal .rule::before {
+    top: 9.5px;
+    border-top-width: 1px;
+  }
+  .minimal .rule::after {
+    display: none;
+  }
+  .almond {
+    flex: none;
+    width: 32px;
+    height: 20px;
     overflow: visible;
   }
 

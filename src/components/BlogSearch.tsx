@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import PlateCorners from './ornament/PlateCorners';
 
 interface PostData {
   id: string;
@@ -88,8 +89,9 @@ export default function BlogSearch({ posts, allTags }: Props) {
               <a
                 key={post.id}
                 href={post.url}
-                className="group plate flex flex-col overflow-hidden hover:border-(--primary) transition-colors"
+                className="group plate flex flex-col hover:border-(--primary) transition-colors"
               >
+                <PlateCorners />
                 {post.cover ? (
                   <img src={post.cover} alt={post.title} className="card-img w-full aspect-video object-cover" />
                 ) : (

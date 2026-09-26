@@ -1,4 +1,6 @@
 ---
+import Divider from './ornament/Divider.astro';
+
 const navLinks = [
    { label: "Case Studies", href: "/case-studies/" },
    { label: "Blog", href: "/blog/" },
@@ -8,9 +10,7 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header
-   class='fixed top-0 left-0 right-0 z-50 border-b border-(--border) shadow-[0_4px_0_-3px_var(--border)] bg-(--background)/85 backdrop-blur-sm'
->
+<header class='relative z-50'>
    <div class='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
       <div class='flex items-center justify-between h-16'>
          <a
@@ -73,7 +73,7 @@ const currentPath = Astro.url.pathname;
    </div>
 
    <!-- Mobile nav -->
-   <div id='mobile-menu' class='hidden md:hidden border-t border-(--border)'>
+   <div id='mobile-menu' class='hidden md:hidden'>
       <nav class='max-w-6xl mx-auto px-4 py-4 flex flex-col gap-4'>
          {
             navLinks.map(({ label, href }) => (
@@ -86,6 +86,9 @@ const currentPath = Astro.url.pathname;
             ))
          }
       </nav>
+   </div>
+   <div class='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8'>
+      <Divider minimal />
    </div>
 </header>
 

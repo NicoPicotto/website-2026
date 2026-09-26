@@ -1,5 +1,5 @@
 ---
-title: "Radio IA: A 24/7 Autonomous Radio Station with Synthetic Hosts"
+title: "Radio IA: a 24/7 AI Radio Station"
 summary: "A personal project born from a simple frustration — no good calm-music streams left with the news check-ins I used to enjoy — solved by building an autonomous radio station run entirely by two AI-generated hosts."
 client: "Personal Project"
 cover: "/images/radio-ai.png"

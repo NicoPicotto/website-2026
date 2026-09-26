@@ -3,8 +3,8 @@
  * OrnateFrame — "Marco III", rococo mirror frame.
  *
  * 9-slice: the four corners, the crest and the bottom drop are fixed-size
- * SVGs; the gilded bands between them and the fine inner rule
- * stretch with the content, so the frame fits any width and height.
+ * SVGs; the gilded bands between them stretch with the content, so the
+ * frame fits any width and height.
  * All ornament is decorative (aria-hidden) and colored via tokens.
  *
  * The frame fills its parent (flex-1) and reserves vertical room for the
@@ -25,7 +25,6 @@ const id = `of${count}`;
     <div class='band band-b' aria-hidden='true'></div>
     <div class='band band-l' aria-hidden='true'></div>
     <div class='band band-r' aria-hidden='true'></div>
-    <div class='fine' aria-hidden='true'></div>
 
     <svg viewBox='-22 -30 162 170' class='corner tl' aria-hidden='true'>
       <defs>
@@ -114,10 +113,12 @@ const id = `of${count}`;
     display: flex;
     flex-direction: column;
     flex: 1;
-    /* Content sits ~20px (sides 16px) inside the fine rule */
+    /* The gilded frame is the only border: content sits on the ivory,
+       clear of the corner shells (~48px deep) top and bottom and ~18px
+       inside the side bands. */
     padding:
       calc(72px * var(--s) + 20px)
-      calc(72px * var(--s) + 16px)
+      calc(36px * var(--s) + 18px)
       calc(72px * var(--s) + 22px);
     filter: drop-shadow(0 12px 14px color-mix(in srgb, var(--ornament-line) 18%, transparent));
   }
@@ -167,13 +168,6 @@ const id = `of${count}`;
   }
   .band-l { left: calc(20px * var(--s)); }
   .band-r { right: calc(20px * var(--s)); }
-
-  /* Fine inner rule */
-  .fine {
-    position: absolute;
-    inset: calc(72px * var(--s));
-    border: 1px solid color-mix(in srgb, var(--ornament-line) 70%, transparent);
-  }
 
   /* Fixed-size ornaments */
   /* The viewBox starts at the leftmost stroke (x = -22), so the box doesn't

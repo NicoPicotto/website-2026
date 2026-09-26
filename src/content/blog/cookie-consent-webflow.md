@@ -7,8 +7,6 @@ tags: ["webflow", "gdpr", "javascript", "cookie-consent"]
 draft: false
 ---
 
-# Free GDPR-Compliant Cookie Consent for Webflow — No Third-Party Tools
-
 If you've ever needed to add a cookie consent modal to a Webflow project, you've probably run into the same wall: every solution out there is either a third-party tool, a paid plugin, or a clunky workaround that doesn't feel native to your project.
 
 I've been building Webflow sites at Fri3nds Agency for years, and this kept bothering me. So I built a lightweight, free solution that lets you design your cookie modal entirely in Webflow (the way you're used to) and handles all the consent logic through a single script.

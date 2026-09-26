@@ -358,10 +358,28 @@
 
   /* Plate — ivory card with an outer double rule (blog cards) */
   .plate {
+    position: relative;
     background: var(--card);
     border: 1px solid var(--border);
     box-shadow: 0 0 0 4px var(--card), 0 0 0 5px var(--border);
   }
+
+  /* Engraved corner blocks on the plate's double rule (PlateCorners),
+     centred on the rule's corners (~2px outside the border box). */
+  .plate-corner {
+    position: absolute;
+    z-index: 1;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+  }
+  .plate-corner-tl { top: -9px; left: -9px; }
+  .plate-corner-tr { top: -9px; right: -9px; }
+  .plate-corner-bl { bottom: -9px; left: -9px; }
+  .plate-corner-br { bottom: -9px; right: -9px; }
+  .plate-corner-block { fill: var(--card); stroke: var(--ornament-line); }
+  .plate-corner-line  { fill: none; stroke: var(--ornament-line); }
+  .plate-corner-star  { fill: var(--ornament-line); }
 }
 
 /* ─── Typography plugin (articles) ───────────────────────────────────────── */
