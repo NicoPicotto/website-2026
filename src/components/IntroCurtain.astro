@@ -1,6 +1,6 @@
 ---
 /*
- * IntroCurtain — opera curtain intro (home only, once per session).
+ * IntroCurtain — opera curtain intro (home only).
  *
  * 1. A closed blood-red curtain covers the viewport.
  * 2. A rocaille cartouche with the NP monogram is drawn in engraved strokes
@@ -10,9 +10,10 @@
  *    the cartouche, and the valance lifts.
  *
  * Visibility is decided before first paint by the inline script in
- * Layout.astro, which adds `intro-on` to <html>. Without that class the
- * curtain is display:none — so without JS, with reduced motion, or once
- * seen in this session, it never shows. The page renders underneath from
+ * Layout.astro, which adds `intro-on` to <html> when the home is entered
+ * from outside the site or reloaded. Without that class the curtain is
+ * display:none — so without JS, with reduced motion, or when arriving from
+ * another page of the site, it never shows. The page renders underneath from
  * the start. Timings live in the --intro-* custom properties below.
  */
 

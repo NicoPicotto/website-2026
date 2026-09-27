@@ -74,12 +74,14 @@ const creativeWorkSchema = {
   creator: { '@type': 'Person', name: 'Nicolas Picotto', url: siteUrl },
 };
 
-// Opera-curtain intro: home only, once per session. Decided before first
-// paint so it never flashes: skipped without JS, with reduced motion, or if
-// already seen. The 9s timeout is a failsafe in case the intro script
-// never runs (its own safety timeout is 6s).
+// Opera-curtain intro, home only. Shown when the home is entered from
+// outside the site (first visit, external link, typed URL) and on every
+// reload; skipped when arriving from another page of the site or via
+// back/forward. Decided before first paint so it never flashes, and
+// skipped without JS or with reduced motion. The 9s timeout is a failsafe
+// in case the intro script never runs (its own safety timeout is 6s).
 const isHome = Astro.url.pathname === '/';
-const introGate = `(function(){try{var d=document.documentElement;if(sessionStorage.getItem('np-intro'))return;if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;sessionStorage.setItem('np-intro','1');d.classList.add('intro-on');setTimeout(function(){d.classList.remove('intro-on','intro-opening')},9000)}catch(e){}})();`;
+const introGate = `(function(){try{var d=document.documentElement;if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var n=performance.getEntriesByType&&performance.getEntriesByType('navigation')[0];var t=n?n.type:'navigate';if(t==='back_forward')return;if(t!=='reload'&&document.referrer&&new URL(document.referrer).origin===location.origin)return;d.classList.add('intro-on');setTimeout(function(){d.classList.remove('intro-on','intro-opening')},9000)}catch(e){}})();`;
 
 const jsonLd =
   type === 'website' ? personSchema : type === 'article' ? articleSchema : creativeWorkSchema;
