@@ -40,7 +40,7 @@ export default function BlogSearch({ posts, allTags }: Props) {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search posts..."
+          placeholder="Search the notes & essays…"
           aria-label="Search posts"
           className="field"
         />
@@ -128,7 +128,7 @@ export default function BlogSearch({ posts, allTags }: Props) {
         </div>
       ) : (
         <p className="text-(--muted-foreground) italic py-8 text-center">
-          No posts match your search.
+          No entries answer to that search. Perhaps try another word.
         </p>
       )}
     </div>
