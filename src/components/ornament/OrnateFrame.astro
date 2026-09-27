@@ -114,12 +114,12 @@ const id = `of${count}`;
     flex-direction: column;
     flex: 1;
     /* The gilded frame is the only border: content sits on the ivory,
-       clear of the corner shells (~48px deep) top and bottom and ~18px
-       inside the side bands. */
+       just clear of the corner shells (~48px deep) top and bottom and
+       ~18px inside the side bands. */
     padding:
-      calc(72px * var(--s) + 20px)
+      calc(72px * var(--s) + 8px)
       calc(36px * var(--s) + 18px)
-      calc(72px * var(--s) + 22px);
+      calc(72px * var(--s) + 4px);
     filter: drop-shadow(0 12px 14px color-mix(in srgb, var(--ornament-line) 18%, transparent));
   }
 
