@@ -1,0 +1,325 @@
+---
+/*
+ * IntroCurtain — opera curtain intro (home only, once per session).
+ *
+ * 1. A closed blood-red curtain covers the viewport.
+ * 2. A rocaille cartouche with the NP monogram is drawn in engraved strokes
+ *    (stroke-dashoffset), then the letters fill in.
+ * 3. Short hold with the ornament complete.
+ * 4. The two halves draw apart like heavy velvet, each carrying its half of
+ *    the cartouche, and the valance lifts.
+ *
+ * Visibility is decided before first paint by the inline script in
+ * Layout.astro, which adds `intro-on` to <html>. Without that class the
+ * curtain is display:none — so without JS, with reduced motion, or once
+ * seen in this session, it never shows. The page renders underneath from
+ * the start. Timings live in the --intro-* custom properties below.
+ */
+
+const halves = ['left', 'right'] as const;
+
+// Monogram: Bodoni Moda italic 700 outlines (the site's display face),
+// converted to paths so they can be drawn stroke by stroke.
+const monogram = [
+  'M191.5 182.9 163.5 118H179.2L197.2 160L206.8 118H207L192.2 182.9ZM141.3 182V181.8H159.8V182ZM149.3 182 163.5 118.2H154.9V118H163.7L149.5 182ZM196.6 118.2V118H215.9V118.2Z',
+  'M225.2 153.1 225.2 152.9H235.3Q239.3 152.9 242.4 150.7Q245.4 148.4 247.4 144.9Q249.4 141.4 250.4 137.4Q251.4 133.4 251.4 129.9Q251.4 128.1 251.1 126Q250.7 124 249.9 122.2Q249 120.4 247.6 119.3Q246.1 118.2 243.8 118.2H237.4L222.5 181.8H231V182H202.5V181.8H209.3L224.2 118.2H216.5V118H246Q251.6 118 256.1 119.4Q260.5 120.8 263.2 123.9Q265.8 127 265.8 132.1Q265.8 138.5 262.3 143.2Q258.8 147.9 252.4 150.5Q246 153.1 237.4 153.1Z',
+];
+
+// Shell ribs of the crest, fanned over a half circle (centre 200,78, r 34)
+const ribs = Array.from({ length: 7 }, (_, i) => {
+  const a = Math.PI * (1 - (i + 1) / 8);
+  return `M200,78 L${(200 + 32 * Math.cos(a)).toFixed(1)},${(78 - 32 * Math.sin(a)).toFixed(1)}`;
+}).join(' ');
+
+// Vertical folds of the velvet, across the whole stage (0–100 units)
+const folds = Array.from({ length: 22 }, (_, i) => {
+  const x = 2.3 + i * 4.6;
+  const w = i % 2 ? 0.9 : -0.9;
+  return `M${x.toFixed(1)},0 C${(x + w).toFixed(1)},30 ${(x - w).toFixed(1)},70 ${(x + w / 2).toFixed(1)},100`;
+});
+---
+
+<div class='intro' aria-hidden='true'>
+  {halves.map((side) => (
+    <div class={`half half-${side}`}>
+      <div class='stage'>
+        <!-- Velvet folds: shadow lines and a thin sheen beside each -->
+        <svg class='folds' viewBox='0 0 100 100' preserveAspectRatio='none'>
+          {folds.map((d) => <path d={d} class='fold' vector-effect='non-scaling-stroke' />)}
+          {folds.map((d) => <path d={d} class='sheen' transform='translate(1.2 0)' vector-effect='non-scaling-stroke' />)}
+        </svg>
+
+        <!-- Fringe along the hem -->
+        <svg class='fringe'>
+          <defs>
+            <pattern id={`intro-fringe-${side}`} width='16' height='40' patternUnits='userSpaceOnUse'>
+              <path d='M8,8 L8,16 M5,22 L4,38 M8,22 L8,39 M11,22 L12,38' class='line' />
+              <ellipse cx='8' cy='19' rx='3.2' ry='3.4' class='line' />
+            </pattern>
+          </defs>
+          <path d='M0,3 H10000 M0,7 H10000' class='line' />
+          <rect width='100%' height='100%' fill={`url(#intro-fringe-${side})`} />
+        </svg>
+
+        <!-- Cartouche: strokes only, drawn in three waves -->
+        <svg class='cartouche' viewBox='0 0 400 300'>
+          <g class='line'>
+            <ellipse cx='200' cy='150' rx='118' ry='74' pathLength='1' class='draw w1' />
+            <ellipse cx='200' cy='150' rx='104' ry='62' class='dots' />
+            <path d='M166,78 A34,34 0 0 1 234,78' pathLength='1' class='draw w2' />
+            <path d='M183,78 A17,17 0 0 1 217,78' pathLength='1' class='draw w2' />
+            <path d={ribs} pathLength='1' class='draw w2' />
+            <path d='M82,150 C60,128 34,132 30,152 C26,172 50,180 58,166 C62,158 54,152 48,158' pathLength='1' class='draw w2' />
+            <path d='M318,150 C340,128 366,132 370,152 C374,172 350,180 342,166 C338,158 346,152 352,158' pathLength='1' class='draw w2' />
+            <path d='M150,222 C160,236 180,238 190,232 M250,222 C240,236 220,238 210,232' pathLength='1' class='draw w2' />
+            <path d='M200,224 C188,236 190,254 200,262 C210,254 212,236 200,224 Z M200,228 L200,258' pathLength='1' class='draw w2' />
+            {monogram.map((d) => <path d={d} pathLength='1' class='draw w3 letter' />)}
+          </g>
+        </svg>
+      </div>
+    </div>
+  ))}
+
+  <!-- Valance with festoons across the top -->
+  <svg class='valance'>
+    <defs>
+      <pattern id='intro-festoon' width='180' height='96' patternUnits='userSpaceOnUse'>
+        <path d='M0,0 H180 V22 C150,74 30,74 0,22 Z' class='swag' />
+        <path d='M10,30 C40,64 140,64 170,30 M22,38 C52,60 128,60 158,38' class='line' />
+        <path d='M0,22 L0,40 M-3,46 L-4,62 M0,46 L0,64 M3,46 L4,62 M180,22 L180,40' class='line' />
+        <ellipse cx='0' cy='43' rx='3' ry='3.2' class='line' />
+        <ellipse cx='180' cy='43' rx='3' ry='3.2' class='line' />
+      </pattern>
+    </defs>
+    <rect width='100%' height='100%' fill='url(#intro-festoon)' />
+  </svg>
+</div>
+
+<style>
+  /* Timings — the script reads these too */
+  :global(:root) {
+    --intro-draw: 1.5s;
+    --intro-hold: 0.3s;
+    --intro-open: 1s;
+    --intro-velvet: cubic-bezier(0.7, 0, 0.18, 1);
+  }
+
+  .intro {
+    display: none;
+  }
+  :global(html.intro-on) {
+    overflow: hidden;
+  }
+  :global(html.intro-on) .intro {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: auto;
+  }
+
+  /* Each half clips a full-viewport stage, so the cartouche reads as one
+     piece while closed and splits exactly at the seam. */
+  .half {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: calc(50% + 1px);
+    overflow: hidden;
+    background:
+      repeating-linear-gradient(90deg,
+        color-mix(in srgb, var(--ornament-line) 0%, transparent) 0 1.2vw,
+        color-mix(in srgb, var(--ornament-line) 22%, transparent) 2.3vw,
+        color-mix(in srgb, var(--ornament-line) 0%, transparent) 3.4vw 4.6vw),
+      var(--primary);
+    will-change: transform;
+  }
+  .half-left {
+    left: 0;
+    transform-origin: left center;
+  }
+  .half-right {
+    right: 0;
+    transform-origin: right center;
+  }
+  .stage {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+  }
+  .half-left .stage { left: 0; }
+  .half-right .stage { right: 0; }
+
+  .folds {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .fold {
+    fill: none;
+    stroke: color-mix(in srgb, var(--ornament-line) 45%, transparent);
+    stroke-width: 1;
+  }
+  .sheen {
+    fill: none;
+    stroke: color-mix(in srgb, var(--ornament-light) 22%, transparent);
+    stroke-width: 1;
+  }
+
+  .fringe {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+  }
+
+  .line {
+    fill: none;
+    stroke: var(--ornament-light);
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .cartouche {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(540px, 88vw);
+    height: auto;
+    aspect-ratio: 400 / 300;
+    transform: translate(-50%, -50%);
+    overflow: visible;
+  }
+  .cartouche .line {
+    stroke-width: 1.4;
+  }
+
+  /* Engraved drawing: three staggered waves (frame, ornament, letters) */
+  .draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  :global(html.intro-on) .draw {
+    animation: intro-draw calc(var(--intro-draw) * 0.6) ease-in-out forwards;
+  }
+  :global(html.intro-on) .w1 { animation-delay: 0s; }
+  :global(html.intro-on) .w2 { animation-delay: calc(var(--intro-draw) * 0.2); }
+  :global(html.intro-on) .w3 { animation-delay: calc(var(--intro-draw) * 0.4); }
+  .letter {
+    stroke-width: 1;
+    fill: var(--ornament-light);
+    fill-opacity: 0;
+  }
+  :global(html.intro-on) .letter {
+    animation:
+      intro-draw calc(var(--intro-draw) * 0.6) ease-in-out calc(var(--intro-draw) * 0.4) forwards,
+      intro-fill var(--intro-hold) ease-out var(--intro-draw) forwards;
+  }
+  .dots {
+    stroke-dasharray: 0 6;
+    stroke-width: 2.2;
+    opacity: 0;
+  }
+  :global(html.intro-on) .dots {
+    animation: intro-fade calc(var(--intro-draw) * 0.3) ease-out calc(var(--intro-draw) * 0.55) forwards;
+  }
+
+  .valance {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 96px;
+    will-change: transform;
+  }
+  .swag {
+    fill: color-mix(in srgb, var(--primary) 82%, var(--ornament-line));
+    stroke: var(--ornament-light);
+    stroke-width: 1.2;
+  }
+
+  /* Opening: heavy velvet drawn to the sides, gathering as it goes */
+  :global(html.intro-opening) .half-left {
+    animation: intro-open-left var(--intro-open) var(--intro-velvet) forwards;
+  }
+  :global(html.intro-opening) .half-right {
+    animation: intro-open-right var(--intro-open) var(--intro-velvet) forwards;
+  }
+  :global(html.intro-opening) .valance {
+    animation: intro-lift var(--intro-open) var(--intro-velvet) calc(var(--intro-open) * 0.25) forwards;
+  }
+  :global(html.intro-opening) .intro {
+    pointer-events: none;
+  }
+
+  @keyframes intro-draw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes intro-fill {
+    to { fill-opacity: 1; }
+  }
+  @keyframes intro-fade {
+    to { opacity: 1; }
+  }
+  @keyframes intro-open-left {
+    to { transform: translateX(-100%) scaleX(0.75); }
+  }
+  @keyframes intro-open-right {
+    to { transform: translateX(100%) scaleX(0.75); }
+  }
+  @keyframes intro-lift {
+    to { transform: translateY(-100%); }
+  }
+
+  /* Belt and braces: the inline script already skips the intro here */
+  @media (prefers-reduced-motion: reduce) {
+    :global(html.intro-on) .intro { display: none; }
+    :global(html.intro-on) { overflow: visible; }
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+
+  if (root.classList.contains('intro-on')) {
+    const intro = document.querySelector<HTMLElement>('.intro');
+    const seconds = (name: string) =>
+      parseFloat(getComputedStyle(root).getPropertyValue(name)) || 0;
+    const minDuration = (seconds('--intro-draw') + seconds('--intro-hold')) * 1000;
+    const openDuration = seconds('--intro-open') * 1000;
+    const SAFETY_TIMEOUT = 6000;
+
+    let opened = false;
+    const open = () => {
+      if (opened) return;
+      opened = true;
+      removeEventListener('pointerdown', open);
+      removeEventListener('keydown', open);
+      root.classList.add('intro-opening');
+      // Done: hide the curtain and give the page back its scroll
+      setTimeout(() => {
+        root.classList.remove('intro-on', 'intro-opening');
+        intro?.remove();
+      }, openDuration * 1.3);
+    };
+
+    // Any click, tap or key skips straight to the opening
+    addEventListener('pointerdown', open);
+    addEventListener('keydown', open);
+
+    // Real load: fonts + the hero image decoded underneath
+    const hero = document.querySelector<HTMLImageElement>('[data-hero-image]');
+    const loaded = Promise.all([
+      document.fonts.ready,
+      hero ? hero.decode().catch(() => {}) : Promise.resolve(),
+    ]);
+    const minimum = new Promise((r) => setTimeout(r, minDuration));
+    const safety = new Promise((r) => setTimeout(r, SAFETY_TIMEOUT));
+
+    Promise.race([Promise.all([loaded, minimum]), safety]).then(open);
+  }
+</script>
