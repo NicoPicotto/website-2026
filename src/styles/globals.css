@@ -221,7 +221,7 @@
   .tag {
     font-family: var(--font-smallcaps);
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.875rem;
     letter-spacing: 0.1em;
     line-height: 1.35;
     padding: 0.125rem 0.625rem 0.1875rem;
@@ -364,22 +364,25 @@
     box-shadow: 0 0 0 4px var(--card), 0 0 0 5px var(--border);
   }
 
-  /* Engraved corner blocks on the plate's double rule (PlateCorners),
-     centred on the rule's corners (~2px outside the border box). */
+  /* Engraved corner brackets on the plate's double rule (PlateCorners).
+     Drawn as the top-left corner with its vertex at (8,8) of a 34px box;
+     the vertex sits 3px outside the outer rule (which is 5px outside the
+     border box), so all the ornament stays off the card. Neighbouring
+     cards need ~30px of gap (gap-x-10). The other corners are mirrors. */
   .plate-corner {
     position: absolute;
     z-index: 1;
-    width: 14px;
-    height: 14px;
+    width: 34px;
+    height: 34px;
+    overflow: visible;
     pointer-events: none;
   }
-  .plate-corner-tl { top: -9px; left: -9px; }
-  .plate-corner-tr { top: -9px; right: -9px; }
-  .plate-corner-bl { bottom: -9px; left: -9px; }
-  .plate-corner-br { bottom: -9px; right: -9px; }
-  .plate-corner-block { fill: var(--card); stroke: var(--ornament-line); }
-  .plate-corner-line  { fill: none; stroke: var(--ornament-line); }
-  .plate-corner-star  { fill: var(--ornament-line); }
+  .plate-corner-tl { top: -16px; left: -16px; }
+  .plate-corner-tr { top: -16px; right: -16px; transform: scaleX(-1); }
+  .plate-corner-bl { bottom: -16px; left: -16px; transform: scaleY(-1); }
+  .plate-corner-br { bottom: -16px; right: -16px; transform: scale(-1, -1); }
+  .plate-corner-line { fill: none; stroke: var(--ornament-line); stroke-linecap: round; }
+  .plate-corner-bud  { fill: var(--ornament-line); }
 }
 
 /* ─── Typography plugin (articles) ───────────────────────────────────────── */

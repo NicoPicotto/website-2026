@@ -78,7 +78,7 @@ export default function BlogSearch({ posts, allTags }: Props) {
 
       {/* Results grid */}
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
           {filtered.map((post) => {
             const date = new Date(post.publishDate).toLocaleDateString('en-US', {
               year: 'numeric',
