@@ -29,7 +29,7 @@ Mine was exactly that. It wasn't poorly made. It just wasn't me. It was built to
 
 I'm not saying every portfolio should go baroque. The point is to start from what you're actually drawn to, instead of from what other developer sites look like.
 
-For me, that was ornate frames, worn textures, marble sculpture, curved furniture, 19th-century typography and muted, earthy colors. [Add a line or two here about where that taste comes from.]
+For me, that was ornate frames, worn textures, marble sculpture, curved furniture, 19th-century typography and muted, earthy colors.
 
 A test I'd suggest: swap your name for someone else's. If the site still makes perfect sense, you have a template, not a portfolio.
 
