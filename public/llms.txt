@@ -35,6 +35,11 @@ Design and development projects showcasing process, decisions, and outcomes.
   An open-source Astro integration for scroll reveal animations — zero JS by default, published on npm.
   Live: https://astro-reveal.nicopicotto.dev/
 
+- [Radio IA: a 24/7 AI Radio Station](https://nicopicotto.dev/case-studies/radio-ia/)
+  Client: Personal Project. Year: 2026. Tags: Liquidsoap, Gemini, Kokoro TTS, Docker.
+  An autonomous 24/7 online radio station with royalty-free music and two AI-generated hosts who react to live weather and news.
+  Live: https://stream.nicopicotto.dev/
+
 - [Lava UGC Agency](https://nicopicotto.dev/case-studies/lava-ugc-agency-case-study/)
   Client: Lava UGC Agency. Year: 2025. Tags: astro, tailwind css, lenis scroll.
   A high-impact landing page for a UGC agency — bold 3D visuals, smooth scroll, zero compromise on performance.
@@ -44,3 +49,8 @@ Design and development projects showcasing process, decisions, and outcomes.
   Client: TechGuru. Year: 2024. Tags: react, gsap, i18next, figma.
   From-scratch identity and website for a technical instrumentation company, later extended with i18n support.
   Live: https://techguru.com.ar/
+
+- [Conectar Consultoría](https://nicopicotto.dev/case-studies/conectar-consultoria/)
+  Client: Conectar Consultoría. Year: 2024. Tags: react, figma, lenis scroll.
+  Full-scope project for a B2B consulting firm, from corporate identity to a production-ready React site, that became a steady source of client referrals.
+  Live: https://conectar-gd.com

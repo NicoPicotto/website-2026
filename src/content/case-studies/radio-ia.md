@@ -5,7 +5,7 @@ client: "Personal Project"
 cover: "/images/radio-ai.png"
 year: 2026
 tags: ["Liquidsoap", "Gemini", "Kokoro TTS", "Docker"]
-draft: false
+draft: true
 liveUrl: "https://stream.nicopicotto.dev/"
 ---
 
