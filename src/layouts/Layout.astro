@@ -121,6 +121,19 @@ const jsonLd =
     <!-- JSON-LD Structured Data -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     {isHome && <script is:inline set:html={introGate} />}
+
+    <!-- Google tag (gtag.js) — solo en el build, para no contar visitas de dev -->
+    {import.meta.env.PROD && (
+      <>
+        <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-BGZPVK9940"></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-BGZPVK9940');
+        </script>
+      </>
+    )}
   </head>
   <body class="min-h-screen">
     {isHome && <IntroCurtain />}
